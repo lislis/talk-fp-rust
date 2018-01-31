@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Functional Rust - An Exploration - LambdaDays 2018</title>
+    <style>
+     html, body {
+       color: #333;
+     }
+     p, li {
+       font-size: 24px;
+       line-height: 1.5;
+     }
+     .center h1, .center h2, .center h3 {
+       line-height: 1.5;
+     }
+     h1 {
+       margin-bottom: 1em;
+     }
+     blockquote {
+       margin: 0;
+       padding: .1rem 1rem;
+       color: #666;
+       border-left: 5px solid #666;
+     }
+     .img-s {
+       display: inline-block;
+       width: 70px;
+       height: auto;
+       vertical-align: middle;
+     }
+     .img-s img {
+       width: 100%;
+     }
+     .img-m {
+       display: block;
+       margin: auto;
+       width: 350px;
+       height: auto;
+       vertical-align: middle;
+     }
+     .img-m img {
+       width: 100%;
+     }
+     .img-l {
+       display: block;
+       margin: auto;
+       width: 800px;
+       height: auto;
+       vertical-align: middle;
+     }
+     .img-l img {
+       width: 100%;
+     }
+     a,
+     a:visited {
+       color: inherit
+     }
+     a:hover,
+     a:focus,
+     a:active {
+       color: #09D4B0;
+     }
+
+     .remark-code {
+       max-height: 400px;
+       overflow: scroll
+     }
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+      # Functional Rust
+
+      ## An Exploration
+
+      LambdaDays 2018 Kraków
+
+      ---
+
+      # $ whoami
+      lislis
+
+      Berlin based web dev, hobby game dev, wannabe digital artist
+
+      Organizer of ClojueBridge and CryptoParties
+
+      ---
+
+      ![Rust logo](img/rust-logo.jpg)
+
+      ---
+
+      Rust is
+
+      - relatively young (1.0.0 was released in 2015)
+      - a systems progamming language (like C/ C++)
+      - fast, safe and concurrent
+      - increasingly gaining popularity
+
+      ---
+
+      ## Is Rust a functional language?
+
+      --
+
+      # NO!
+
+      ---
+
+      ## Why are we even here then?
+
+      --
+
+      ![shug](img/shrug2.gif)
+
+      ---
+
+      ## Two reasons
+
+      1. Rust will be important and knowing a little bit will be useful
+
+      2. Because we can still apply functional thinking to Rust code
+
+      ---
+
+      ## Huh?
+
+      Functional programming is not only a paragim,
+
+      but a way of thinking about code
+
+      and a set of tools in your toolbox
+
+      ---
+
+      # How do you write functional Rust code?
+
+      Well, let's find out!
+
+
+      ---
+
+      # In the beginning was the function
+
+      --
+
+      anonymous functions
+
+      pure functions
+
+      higher order functions
+
+      - currying
+      - closues
+
+      Iterators!
+
+      Recursion
+
+      ---
+
+      # Mutability
+
+      default is immutable
+
+      no persistent data structues
+
+      no garbage collector
+
+      Ownership and borrowing
+
+      ---
+
+      # And then came more functions
+
+      ---
+
+      Code please!
+
+
+      ---
+
+      ## Is that all there is?
+
+      This is just a small excursion
+
+      --
+
+      you can explore the deep ends by yourself.
+
+      ---
+
+      ## Special <3
+
+      to Florian (@argorak) and Andrew (@hoverbear)
+      for reviewing this talk!
+
+      ---
+
+      # Thank you!
+
+      mail[at]lislis[dot]de
+
+      https://github.com/lislis
+
+      (Slides) https://lislis.de/talks/fp-rust
+
+    </textarea>
+    <script src="remark.min.js"></script>
+    <script>var slideshow = remark.create({
+       ratio: '16:9',
+       navigation: {
+         scroll: false
+       }});
+    </script>
+  </body>
+</html>
