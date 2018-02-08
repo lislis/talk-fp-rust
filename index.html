@@ -8,7 +8,7 @@
        color: #333;
      }
      p, li {
-       font-size: 24px;
+       font-size: 28px;
        line-height: 1.5;
      }
      .center h1, .center h2, .center h3 {
@@ -59,7 +59,7 @@
      a:hover,
      a:focus,
      a:active {
-       color: #09D4B0;
+       color: #D89018;
      }
 
      .remark-code {
@@ -76,31 +76,45 @@
 
       ## An Exploration
 
-      LambdaDays 2018 Kraków
+      Lisa Passing - LambdaDays 2018
 
       ---
 
       # $ whoami
-      lislis
 
-      Berlin based web dev, hobby game dev, wannabe digital artist
+      --
 
-      Organizer of ClojueBridge and CryptoParties
+      Berlin based web dev, hobby game dev, wannabe digital artist.
+
+      --
+
+      Co-organizer of [ClojureBridge Berlin](http://clojurebridge-berlin.org/) and various [CryptoParties](https://www.cryptoparty.in/berlin).
 
       ---
 
+      class: center, middle
       ![Rust logo](img/rust-logo.jpg)
 
       ---
 
-      Rust is
+      # Rust is
+
+      --
+
+      - a systems progamming language (like C/ C++)
+
+      --
 
       - relatively young (1.0.0 was released in 2015)
-      - a systems progamming language (like C/ C++)
-      - fast, safe and concurrent
+
+
+      --
+
       - increasingly gaining popularity
 
       ---
+
+      class: center, middle
 
       ## Is Rust a functional language?
 
@@ -110,23 +124,36 @@
 
       ---
 
+      class: center, middle
       ## Why are we even here then?
 
-      --
+      ---
 
-      ![shug](img/shrug2.gif)
+      background-image: url(img/shrug2.gif)
+      background-size: cover
 
       ---
 
       ## Two reasons
 
-      1. Rust will be important and knowing a little bit will be useful
+      --
 
-      2. Because we can still apply functional thinking to Rust code
+      1. Because we can still apply functional thinking
+
+      --
+
+      2. Rust drew inspriation from functional languages
+
+      --
+
+      3.* Rust will be important and knowing it will be useful
+
+
+      `* one-off error joke`
 
       ---
 
-      ## Huh?
+      class: center, middle
 
       Functional programming is not only a paragim,
 
@@ -136,16 +163,75 @@
 
       ---
 
-      # How do you write functional Rust code?
+      # How functional can you go?
+
+      --
 
       Well, let's find out!
 
+      ---
+
+      class: center, middle
+      Ready?
+
+      ---
+
+      # Mutability
+
+      --
+
+      - per default all variables are immutable
+      - but we don't have persistent datastructures
+      -> copying and allocating in large quantities costs us performance
 
       ---
 
       # In the beginning was the function
 
       --
+
+      - a function can have parameters
+      - if it has params, the type must be annotated
+
+      ```rust
+      fn main() {
+        another_function(7);
+      }
+
+      fn another_function(x: u32) {
+        println!("Hello {}", x);
+      }
+      ```
+
+      ---
+
+      # What do I return?
+
+      - statements perform actions
+      - Expressions return values
+      - Expressions do not have a trailing semicolon
+
+      - function declarations are statements
+      - function calls are expressions
+      - Statements cannot be assigned to variables, expressions can
+
+      ---
+
+      ```rust
+      fn square(x: i32) -> i32 {
+        x * x
+      }
+      ```
+
+      ---
+
+      # Who owns what?
+
+      ---
+
+
+      enums Option<T> Some(T) None
+      enum Result<T, E>, Ok(T) Err(E)
 
       anonymous functions
 
@@ -159,6 +245,38 @@
       Iterators!
 
       Recursion
+
+      ---
+
+      # Closures in Rust
+
+      - anonymous functions that can be saved in variables and used as function params
+
+      - dont have type annotations because types can be inferred
+
+      - memoization with Structs via Generics
+
+      - Function-like Traits that Closures implement
+
+      Syntax example?
+
+      ---
+
+      # Iterators
+
+      - are lazy
+
+      - also a Trait that implements next()
+
+      - consumers rememeber iterator state and kick off evaluation
+
+      - iterator adapters that change iterators into different iterators
+
+      - can take closures as arguments
+
+      - eg collect()
+
+      - zero cost abstractions!
 
       ---
 
@@ -185,18 +303,20 @@
 
       ## Is that all there is?
 
-      This is just a small excursion
-
       --
 
-      you can explore the deep ends by yourself.
+      This is just a small excursion!
+
+      Read [The Rust Programming Language 2nd edition](https://doc.rust-lang.org/book/second-edition/)
 
       ---
 
       ## Special <3
 
-      to Florian (@argorak) and Andrew (@hoverbear)
+      to Florian ([@argorak](https://twitter.com/Argorak)) and Andrew ([@andrewhobden](https://twitter.com/andrewhobden))
       for reviewing this talk!
+
+      to Carol ([@carols10cents](https://twitter.com/Carols10cents)) for the amazing work on the [2nd edition Rust book](https://doc.rust-lang.org/book/second-edition/)
 
       ---
 
