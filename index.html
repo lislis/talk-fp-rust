@@ -551,9 +551,86 @@
 
       --
 
-      enums Option<T> Some(T) None
-      enum Result<T, E>, Ok(T) Err(E)
+      - `Enum`s are types with enumerated possible values
 
+      --
+
+      - `Generics` allow type-independent implementation of functionality
+
+      --
+
+      ```rust
+      enum Option<T> {
+        Some<T>,
+        None,
+      }
+      ```
+      --
+
+      ```rust
+      enum Result<T, E> {
+        Ok(T),
+        Err(E)
+      }
+      ```
+      ---
+
+      ## Implementing the Iterator trait
+      --
+
+      ```rust
+      struct Counter {
+        count: u32,
+      }
+
+      impl Counter {
+        fn new() -> Counter {
+          Counter { count: 0 }
+        }
+      }
+      ```
+
+      .small[[Example taken from the book](https://doc.rust-lang.org/book/second-edition/ch13-02-iterators.html#implementing-the-iterator-trait-to-create-our-own-iterators)]
+      ---
+
+      ## Implementing the Iterator trait .small[pt2]
+      --
+
+      ```rust
+
+      impl Iterator for Counter {
+        type Item = u32;
+
+        fn next(&mut self) -> Option<Self::Item> {
+          self.count += 1;
+
+          if self.count < 6 {
+            Some(self.count)
+          } else {
+            None
+          }
+        }
+      }
+      ```
+
+      .small[[Example taken from the book](https://doc.rust-lang.org/book/second-edition/ch13-02-iterators.html#implementing-the-iterator-trait-to-create-our-own-iterators)]
+      ---
+
+      # Checklist
+
+      ☑ Immutability
+
+      ☑ (Pure) Functions
+
+      ☑ Higher Order functions
+
+      ☑ Monads
+
+      ---
+
+      class: center, middle
+
+      phew
 
       ---
 
@@ -561,9 +638,15 @@
 
       --
 
-      This is just a small excursion!
+      These are just the most obvious fp features in Rust.
 
-      Read [The Rust Programming Language 2nd edition](https://doc.rust-lang.org/book/second-edition/)
+      --
+
+      Rust itself has a lot more concepts that were entirely left out.
+
+      --
+
+      If you're interested, read [The Rust Programming Language 2nd edition](https://doc.rust-lang.org/book/second-edition/).
 
       ---
 
