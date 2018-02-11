@@ -67,6 +67,10 @@
        overflow: scroll
      }
 
+     .small {
+       font-size: 0.7em;
+     }
+
     </style>
   </head>
   <body>
@@ -138,7 +142,7 @@
 
       --
 
-      1. Because we can still apply functional thinking
+      1. Because we can still apply functional thinking non-functional languages
 
       --
 
@@ -176,22 +180,163 @@
 
       ---
 
-      # Mutability
+      # Disclaimer
+
+      --
+
+      This is not a complete overview of Rust.
+
+      A lot of important concepts in Rust are left out because they go beyond the scope of this talk.
+
+      But you can ask me after the talk and in the breaks if you want.
+
+      ---
+
+      # Checklist
+
+      ☐ Immutability
+
+      ☐ (Pure) Functions
+
+      ☐ Higher Order Functions
+
+      ☐ Monads
+
+      ---
+
+      # (Im)Mutability
 
       --
 
       - per default all variables are immutable
-      - but we don't have persistent datastructures
-      -> copying and allocating in large quantities costs us performance
+
+      --
+
+      ```rust
+      let a = "hello";
+
+      a = "foo";
+      ```
+
+      --
+
+      ```rust
+      error[E0384]: cannot assign twice to immutable variable `a`
+       --> src/main.rs:4:5
+        |
+      3 |     let a = "Hello";
+        |         - first assignment to `a`
+      4 |     a = "foo";
+        |     ^^^^^^^^^ cannot assign twice to immutable variable
+
+      error: aborting due to previous error
+      ```
+      ---
+
+      # (Im)Mutability
+
+      - per default all variables are immutable
+
+      --
+
+      - but you can shadow them
+
+      --
+
+      ```rust
+      let a = "hello";
+
+      let a = "foo";
+      ```
 
       ---
 
-      # In the beginning was the function
+      # (Im)Mutability
+
+      - per default all variables are immutable
+
+      - but you can shadow them
+
+      --
+
+      - you have the option to create them mutably
+
+      --
+
+      ```rust
+      let mut a = "hello";
+
+      a = "foo";
+      ```
+
+      ---
+
+      # (Im)Mutability
+
+      - per default all variables are immutable
+
+      - but you can shadow them
+
+      - you have the option to create them mutably
+
+      - _Sidenote_: type annotation on variable assignment is optional
+
+      ---
+
+      # (Im)Mutability .small[pt2]
+
+      --
+
+      - Rust does not implement persistent datastructures
+
+      --
+
+        ➪ copying and allocating large quantities of data comes with performance cost
+
+      ---
+
+
+      # Checklist
+
+      ☑ Immutability
+
+      ☐ (Pure) Functions
+
+      ☐ Higher Order Functions
+
+      ☐ Monads
+
+      ---
+
+      # Functions
+
+      --
+
+      - indicated by `fn` keyword
+
+      --
+
+      ```rust
+      fn main() {
+        println!("Hello World");
+      }
+      ```
+
+      ---
+
+      # Functions
+
+      - indicated by `fn` keyword
 
       --
 
       - a function can have parameters
-      - if it has params, the type must be annotated
+
+      --
+
+      - if it has params, types must be annotated
+
+      --
 
       ```rust
       fn main() {
@@ -205,98 +350,209 @@
 
       ---
 
-      # What do I return?
+      # Functions
 
-      - statements perform actions
-      - Expressions return values
-      - Expressions do not have a trailing semicolon
+      - indicated by `fn` keyword
 
-      - function declarations are statements
-      - function calls are expressions
-      - Statements cannot be assigned to variables, expressions can
+      - a function can have parameters
+
+      - if it has params, types must be annotated
+
+      --
+
+      - if it returns a value, types must be annotated
 
       ---
+
+      # Functions .small[continued]
 
       ```rust
-      fn square(x: i32) -> i32 {
-        x * x
+      fn main() {
+        println!("Hello {}", another_function(7));
+      }
+
+      fn another_function(x: u32) -> u32 {
+        x
       }
       ```
+      --
+      ```bash
+      => Hello 7
+      ```
+      ---
+
+      class: center, middle
+      # What does a `fn` return?
+      ---
+
+      # Statements vs Expressions
+      --
+
+      - Statements perform actions
+
+      - Expressions return values
+
+      --
+
+      - Expressions do not have a trailing semicolon
 
       ---
 
-      # Who owns what?
+      # Statements vs Expressions .small[pt2]
+
+      --
+      - Function declarations are statements
+
+      - Function calls are expressions
+
+      --
+
+      - Statements __cannot__ be assigned to variables, expressions __can__
 
       ---
 
+      # Checklist
 
-      enums Option<T> Some(T) None
-      enum Result<T, E>, Ok(T) Err(E)
+      ☑ Immutability
 
-      anonymous functions
+      ☑ (Pure) Functions
 
-      pure functions
+      ☐ Higher Order Functions
 
-      higher order functions
+      ☐ Monads
 
-      - currying
-      - closues
+      ---
 
-      Iterators!
+      # Higher Order Functions
 
-      Recursion
+      --
+
+      - Rust cannot return functions, since declarations are statements
+
+      --
+
+      - Rust cannot take a function as param for the same reason
+
+      --
+
+      __But__ there is a special case ...
+
 
       ---
 
       # Closures in Rust
 
-      - anonymous functions that can be saved in variables and used as function params
+      --
 
-      - dont have type annotations because types can be inferred
+      - anonymous functions that can capture values form their context
 
-      - memoization with Structs via Generics
+      --
 
-      - Function-like Traits that Closures implement
+      - can be saved in variables and used as arguments
 
-      Syntax example?
+      --
+
+      ```rust
+
+      let a_clojure = |num| {
+        num * num
+      }
+
+      ```
+      --
+
+      ```rust
+      a_clojure(7)
+      ```
+      ---
+
+      # Closures in Rust
+
+      - anonymous functions that can capture values form their context
+
+      - can be saved in variables and used as arguments
+
+      - type annotations are optional
+
+      --
+
+      - _Sidenote_: [example implementation of memoization with closures](https://doc.rust-lang.org/book/second-edition/ch13-01-closures.html#storing-closures-using-generic-parameters-and-the-fn-traits)
 
       ---
 
-      # Iterators
+      # Enter Iterators
 
-      - are lazy
+      --
 
-      - also a Trait that implements next()
+      - handles logic to manage the iteration of a sequence
 
-      - consumers rememeber iterator state and kick off evaluation
+      --
 
-      - iterator adapters that change iterators into different iterators
+      ```rust
+      let victor = vec!["CA", "CO", "ID", "IN", "IO", "MT", "NY", "SD"];
 
-      - can take closures as arguments
+      let vic_iter = victor.inter();
 
-      - eg collect()
+      ```
+      ---
 
-      - zero cost abstractions!
+      # Enter Iterators
+
+      - handles logic to manage the iteration of a sequence
+
+      - __consuming adaptors__ use up the iterator
+
+      --
+
+      - __iterator adaptors__ can transform one iterator into another
+
+      --
+
+      - can take closures as argument
+
+      --
+
+      ```rust
+      let v1 = vec![1, 2, 3, 4];
+      let v2 = v1.iter().map(|x| x + 1).collect();
+      ```
 
       ---
 
-      # Mutability
+      # Iterators .small[pt2]
 
-      default is immutable
+      --
 
-      no persistent data structues
+      - one of Rust's zero cost abstractions
 
-      no garbage collector
+      --
 
-      Ownership and borrowing
+      - readable high level code
+
+      --
+
+      - implementable on your own types
 
       ---
 
-      # And then came more functions
+      # Checklist
+
+      ☑ Immutability
+
+      ☑ (Pure) Functions
+
+      ☑ Higher Order functions
+
+      ☐ Monads
 
       ---
 
-      Code please!
+      # Monads, maybe?
+
+      --
+
+      enums Option<T> Some(T) None
+      enum Result<T, E>, Ok(T) Err(E)
 
 
       ---
