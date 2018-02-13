@@ -167,6 +167,21 @@
 
       ---
 
+      background-image: url(img/humble-1.png)
+      background-size: cover
+
+      ---
+
+      background-image: url(img/humble-2.png)
+      background-size: contain
+
+      ---
+
+      background-image: url(img/humble-3.png)
+      background-size: contain
+
+      ---
+
       # How functional can you go?
 
       --
@@ -278,6 +293,12 @@
       - but you can shadow them
 
       - you have the option to create them mutably
+
+      --
+
+      - contants are always immutable `const MAX_POINTS: u32 = 1000;`
+
+      --
 
       - _Sidenote_: type annotation on variable assignment is optional
 
@@ -444,7 +465,7 @@
 
       --
 
-      - anonymous functions that can capture values form their context
+      - anonymous functions that can capture values from their context
 
       --
 
@@ -491,7 +512,7 @@
       ```rust
       let victor = vec!["CA", "CO", "ID", "IN", "IO", "MT", "NY", "SD"];
 
-      let vic_iter = victor.inter();
+      let vic_iter = victor.iter();
 
       ```
       ---
