@@ -142,28 +142,18 @@
 
       --
 
-      1. Because we can still apply functional thinking non-functional languages
+      1. We can still apply functional thinking non-functional languages
 
       --
 
-      2. Rust drew inspriation from functional languages
+      2. Rust drew inspiration from functional languages
 
       --
 
       3.* Rust will be important and knowing it will be useful
 
 
-      `* one-off error joke`
-
-      ---
-
-      class: center, middle
-
-      Functional programming is not only a paragim,
-
-      but a way of thinking about code
-
-      and a set of tools in your toolbox
+      .small[`* one-off-error joke`]
 
       ---
 
@@ -182,11 +172,9 @@
 
       ---
 
-      # How functional can you go?
+      class: center, middle
 
-      --
-
-      Well, let's find out!
+      ## Let's get functional
 
       ---
 
@@ -201,9 +189,14 @@
 
       This is not a complete overview of Rust.
 
+      --
+
       A lot of important concepts in Rust are left out because they go beyond the scope of this talk.
 
-      But you can ask me after the talk and in the breaks if you want.
+      ---
+
+      class: center, middle
+      Ready?
 
       ---
 
@@ -211,11 +204,11 @@
 
       ☐ Immutability
 
-      ☐ (Pure) Functions
+      ☐ Functions
+
+      ☐ Types and Traits
 
       ☐ Higher Order Functions
-
-      ☐ Monads
 
       ---
 
@@ -228,9 +221,11 @@
       --
 
       ```rust
-      let a = "hello";
+      fn main() {
 
-      a = "foo";
+        let a = "hello";
+        a = "foo";
+      }
       ```
 
       --
@@ -296,7 +291,11 @@
 
       --
 
-      - contants are always immutable `const MAX_POINTS: u32 = 1000;`
+      - contants are always immutable
+
+      ```rust
+      const MAX_POINTS: u32 = 1000;
+      ```
 
       --
 
@@ -314,18 +313,23 @@
 
         ➪ copying and allocating large quantities of data comes with performance cost
 
-      ---
+      --
 
+      - The Borrow-checker* takes care of a lot of involuntary mutation
+
+      .small[`* The Borrow-checker is a large topic that is left out in this talk`]
+
+      ---
 
       # Checklist
 
       ☑ Immutability
 
-      ☐ (Pure) Functions
+      ☐ Functions
+
+      ☐ Types and Traits
 
       ☐ Higher Order Functions
-
-      ☐ Monads
 
       ---
 
@@ -436,11 +440,85 @@
 
       ☑ Immutability
 
-      ☑ (Pure) Functions
+      ☑ Functions
+
+      ☐ Types and Traits
 
       ☐ Higher Order Functions
 
-      ☐ Monads
+      ---
+
+      # Types and Traits
+
+      --
+
+      - Rust is statically typed with type inference
+
+      ---
+
+      # Generic Types and Traits
+
+      --
+
+      - `Generics` are stand-ins for concrete types
+
+      --
+
+      - `Traits` allow implementation of functionality
+
+      --
+
+        - concrete types
+
+      --
+
+        - on generic types
+
+      ---
+
+
+      # Monads, maybe?
+
+      --
+
+      - `Enum`s are types with enumerated possible values
+
+      --
+
+      - `Enum variants` can hold `generic` Types
+
+      --
+
+      - Rust has some pretty neat `Enums` build in
+
+      --
+
+      ```rust
+      enum Option<T> {
+        Some<T>,
+        None,
+      }
+      ```
+      --
+
+      ```rust
+      enum Result<T, E> {
+        Ok(T),
+        Err(E)
+      }
+      ```
+
+      ---
+
+      # Checklist
+
+      ☑ Immutability
+
+      ☑ Functions
+
+      ☑ Types and Traits
+
+      ☐ Higher Order Functions
 
       ---
 
@@ -489,7 +567,7 @@
 
       # Closures in Rust
 
-      - anonymous functions that can capture values form their context
+      - anonymous functions that can capture values from their context
 
       - can be saved in variables and used as arguments
 
@@ -505,7 +583,7 @@
 
       --
 
-      - handles logic to manage the iteration of a sequence
+      - `Trait` that handles logic to manage the iteration of a sequence
 
       --
 
@@ -515,11 +593,20 @@
       let vic_iter = victor.iter();
 
       ```
+
+      --
+
+      ```rust
+      for v in vic_iter {
+        println!("{}", v);
+      }
+      ```
+
       ---
 
       # Enter Iterators
 
-      - handles logic to manage the iteration of a sequence
+      - `Trait` that handles logic to manage the iteration of a sequence
 
       - __consuming adaptors__ use up the iterator
 
@@ -548,52 +635,12 @@
 
       --
 
-      - readable high level code
+      - creates readable high level code
 
       --
 
       - implementable on your own types
 
-      ---
-
-      # Checklist
-
-      ☑ Immutability
-
-      ☑ (Pure) Functions
-
-      ☑ Higher Order functions
-
-      ☐ Monads
-
-      ---
-
-      # Monads, maybe?
-
-      --
-
-      - `Enum`s are types with enumerated possible values
-
-      --
-
-      - `Generics` allow type-independent implementation of functionality
-
-      --
-
-      ```rust
-      enum Option<T> {
-        Some<T>,
-        None,
-      }
-      ```
-      --
-
-      ```rust
-      enum Result<T, E> {
-        Ok(T),
-        Err(E)
-      }
-      ```
       ---
 
       ## Implementing the Iterator trait
@@ -635,17 +682,30 @@
       ```
 
       .small[[Example taken from the book](https://doc.rust-lang.org/book/second-edition/ch13-02-iterators.html#implementing-the-iterator-trait-to-create-our-own-iterators)]
+
       ---
 
       # Checklist
 
       ☑ Immutability
 
-      ☑ (Pure) Functions
+      ☑ Functions
+
+      ☑ Types and Traits
 
       ☑ Higher Order functions
 
-      ☑ Monads
+      ---
+
+      # Checklist
+
+      ☑ Immutability
+
+      ☑ Functions, statements and expressions
+
+      ☑ Generic Types, Enums and Traits
+
+      ☑ Closures and Iterators
 
       ---
 
@@ -655,28 +715,27 @@
 
       ---
 
+      class: center, middle
+
       ## Is that all there is?
 
-      --
+      ---
 
-      These are just the most obvious fp features in Rust.
+      class: center, middle
 
-      --
-
-      Rust itself has a lot more concepts that were entirely left out.
-
-      --
-
-      If you're interested, read [The Rust Programming Language 2nd edition](https://doc.rust-lang.org/book/second-edition/).
+      # Explore functional Rust yourself!
 
       ---
 
       ## Special <3
 
-      to Florian ([@argorak](https://twitter.com/Argorak)) and Andrew ([@andrewhobden](https://twitter.com/andrewhobden))
+      **Florian** ([@argorak](https://twitter.com/Argorak)) and **Andrew** ([@andrewhobden](https://twitter.com/andrewhobden))
+
       for reviewing this talk!
 
-      to Carol ([@carols10cents](https://twitter.com/Carols10cents)) for the amazing work on the [2nd edition Rust book](https://doc.rust-lang.org/book/second-edition/)
+      **Carol** ([@carols10cents](https://twitter.com/Carols10cents))
+
+      for the amazing work on the [2nd edition Rust book](https://doc.rust-lang.org/book/second-edition/)!
 
       ---
 
