@@ -94,6 +94,10 @@
 
       Co-organizer of [ClojureBridge Berlin](http://clojurebridge-berlin.org/) and various [CryptoParties](https://www.cryptoparty.in/berlin).
 
+      --
+
+      I've spoken at RustFest Kyiv and RustFest Zürich.
+
       ---
 
       class: center, middle
@@ -114,7 +118,7 @@
 
       --
 
-      - increasingly gaining popularity
+      - gaining popularity
 
       ---
 
@@ -124,7 +128,7 @@
 
       --
 
-      # NO!
+      # No
 
       ---
 
@@ -191,7 +195,9 @@
 
       --
 
-      A lot of important concepts in Rust are left out because they go beyond the scope of this talk.
+      Rust's concepts are not complicated but you need to have them present all at once.
+
+      That can be tough in the beginnning.
 
       ---
 
@@ -249,14 +255,16 @@
 
       --
 
-      - but you can shadow them
+      - but you can opt-into mutability
 
       --
 
       ```rust
-      let a = "hello";
+      fn main() {
 
-      let a = "foo";
+        let mut a = "hello";
+        a = "foo";
+      }
       ```
 
       ---
@@ -265,33 +273,11 @@
 
       - per default all variables are immutable
 
-      - but you can shadow them
+      - but you can opt-into mutability
 
       --
 
-      - you have the option to create them mutably
-
-      --
-
-      ```rust
-      let mut a = "hello";
-
-      a = "foo";
-      ```
-
-      ---
-
-      # (Im)Mutability
-
-      - per default all variables are immutable
-
-      - but you can shadow them
-
-      - you have the option to create them mutably
-
-      --
-
-      - contants are always immutable
+      - constants are always immutable
 
       ```rust
       const MAX_POINTS: u32 = 1000;
@@ -315,9 +301,13 @@
 
       --
 
-      - The Borrow-checker* takes care of a lot of involuntary mutation
+      - Ownership and the Borrow-checker* take care of a lot of involuntary mutation
 
-      .small[`* The Borrow-checker is a large topic that is left out in this talk`]
+      .small[`* both are large topic that are left out in this talk`]
+
+      --
+
+      - there are community efforts ([im-rs](https://github.com/bodil/im-rs))
 
       ---
 
@@ -365,10 +355,10 @@
 
       ```rust
       fn main() {
-        another_function(7);
+        id(7);
       }
 
-      fn another_function(x: u32) {
+      fn id(x: u32) {
         println!("Hello {}", x);
       }
       ```
@@ -378,6 +368,8 @@
       # Functions
 
       - indicated by `fn` keyword
+
+      - no aribtraty number of
 
       - a function can have parameters
 
@@ -393,10 +385,10 @@
 
       ```rust
       fn main() {
-        println!("Hello {}", another_function(7));
+        println!("Hello {}", id(7));
       }
 
-      fn another_function(x: u32) -> u32 {
+      fn id(x: u32) -> u32 {
         x
       }
       ```
@@ -468,11 +460,17 @@
 
       --
 
-        - concrete types
+        - on concrete types
 
       --
 
         - on generic types
+
+      --
+
+      ```rust
+      impl Log for <T : Debug> {}
+      ```
 
       ---
 
@@ -489,7 +487,7 @@
 
       --
 
-      - Rust has some pretty neat `Enums` build in
+      - using an option, mapping it and pull out the value, 3 line example
 
       --
 
@@ -499,12 +497,13 @@
         None,
       }
       ```
-      --
 
       ```rust
-      enum Result<T, E> {
-        Ok(T),
-        Err(E)
+      fn plus_one(x: Option<i32>) -> Option<i32> {
+        match x {
+          None => None,
+          Some(i) => Some(i + 1),
+        }
       }
       ```
 
@@ -525,6 +524,16 @@
       # Higher Order Functions
 
       --
+
+      - function names are part of the type, two functions with the same signature are different
+
+      - function pointer? but very uneconomic
+
+      - fn can't capture environement
+
+      - not dynamically creating functions
+
+      - iterators are concurrency thread safe
 
       - Rust cannot return functions, since declarations are statements
 
@@ -585,6 +594,8 @@
 
       - `Trait` that handles logic to manage the iteration of a sequence
 
+      - they are lazy
+
       --
 
       ```rust
@@ -610,9 +621,13 @@
 
       - __consuming adaptors__ use up the iterator
 
+      fold
+
       --
 
       - __iterator adaptors__ can transform one iterator into another
+
+      map or filter
 
       --
 
@@ -718,6 +733,8 @@
       class: center, middle
 
       ## Is that all there is?
+
+      Aside from ownership and borrowing these are areas that you can use your previous knowledge of fp
 
       ---
 
