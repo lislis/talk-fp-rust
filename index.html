@@ -96,7 +96,7 @@
 
       --
 
-      I've spoken at RustFest Kyiv and RustFest Zürich.
+      I've spoken at [RustFest Kyiv](http://2017.rustfest.eu/) and [RustFest Zürich](http://zurich.rustfest.eu/).
 
       ---
 
@@ -128,7 +128,7 @@
 
       --
 
-      # No
+      No, more like, multi-paradigm and imperative.
 
       ---
 
@@ -479,15 +479,11 @@
 
       --
 
-      - `Enum`s are types with enumerated possible values
+      - `Enums` are types with enumerated possible values
 
       --
 
       - `Enum variants` can hold `generic` Types
-
-      --
-
-      - using an option, mapping it and pull out the value, 3 line example
 
       --
 
@@ -497,6 +493,14 @@
         None,
       }
       ```
+      ---
+
+      # Monads, maybe?
+
+      - `Enums` are types with enumerated possible values
+
+      - `Enum variants` can hold `generic` Types
+
 
       ```rust
       fn plus_one(x: Option<i32>) -> Option<i32> {
@@ -505,6 +509,12 @@
           Some(i) => Some(i + 1),
         }
       }
+      ```
+
+      --
+
+      ```rust
+      plus_one(Some(5)).expect("No number given");
       ```
 
       ---
@@ -525,21 +535,23 @@
 
       --
 
-      - function names are part of the type, two functions with the same signature are different
-
-      - function pointer? but very uneconomic
-
-      - fn can't capture environement
-
-      - not dynamically creating functions
-
-      - iterators are concurrency thread safe
-
-      - Rust cannot return functions, since declarations are statements
+      - function names are part of a function's type
 
       --
 
-      - Rust cannot take a function as param for the same reason
+        ➪ functions with same signature are still different
+
+      --
+
+        ➪ creating functions dynamically and passing them around is not possible
+
+      --
+
+      - Passing around function pointers??? Probably not
+
+      --
+
+      - fn can't capture environement
 
       --
 
@@ -594,7 +606,9 @@
 
       - `Trait` that handles logic to manage the iteration of a sequence
 
-      - they are lazy
+      - `Iterators` are thread safe
+
+      - `Iterators` are lazy
 
       --
 
@@ -615,46 +629,31 @@
 
       ---
 
-      # Enter Iterators
-
-      - `Trait` that handles logic to manage the iteration of a sequence
-
-      - __consuming adaptors__ use up the iterator
-
-      fold
-
-      --
-
-      - __iterator adaptors__ can transform one iterator into another
-
-      map or filter
-
-      --
+      # Enter Iterators .small[pt2]
 
       - can take closures as argument
 
       --
 
+      - __consuming adaptors__ use up the iterator
+
+      --
+
       ```rust
-      let v1 = vec![1, 2, 3, 4];
-      let v2 = v1.iter().map(|x| x + 1).collect();
+      let v1 = [1, 2, 3, 4];
+      let v2 = v1.iter().fold(0, |acc, &x| acc + x);
       ```
 
-      ---
+      --
 
-      # Iterators .small[pt2]
+      - __iterator adaptors__ can transform one iterator into another
 
       --
 
-      - one of Rust's zero cost abstractions
-
-      --
-
-      - creates readable high level code
-
-      --
-
-      - implementable on your own types
+      ```rust
+      let v1 = [1, 2, 3, 4];
+      let v2 = v1.iter().map(|x| x + 1).fold(0, |acc, x| acc + x);
+      ```
 
       ---
 
@@ -712,18 +711,6 @@
 
       ---
 
-      # Checklist
-
-      ☑ Immutability
-
-      ☑ Functions, statements and expressions
-
-      ☑ Generic Types, Enums and Traits
-
-      ☑ Closures and Iterators
-
-      ---
-
       class: center, middle
 
       phew
@@ -732,9 +719,7 @@
 
       class: center, middle
 
-      ## Is that all there is?
-
-      Aside from ownership and borrowing these are areas that you can use your previous knowledge of fp
+      ## That's (almost) all, folks!
 
       ---
 
