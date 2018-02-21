@@ -23,35 +23,6 @@
        color: #666;
        border-left: 5px solid #666;
      }
-     .img-s {
-       display: inline-block;
-       width: 70px;
-       height: auto;
-       vertical-align: middle;
-     }
-     .img-s img {
-       width: 100%;
-     }
-     .img-m {
-       display: block;
-       margin: auto;
-       width: 350px;
-       height: auto;
-       vertical-align: middle;
-     }
-     .img-m img {
-       width: 100%;
-     }
-     .img-l {
-       display: block;
-       margin: auto;
-       width: 800px;
-       height: auto;
-       vertical-align: middle;
-     }
-     .img-l img {
-       width: 100%;
-     }
      a,
      a:visited {
        color: inherit
@@ -71,20 +42,28 @@
        font-size: 0.7em;
      }
 
+     .title {
+       font-size: 2em
+     }
+
     </style>
   </head>
   <body>
     <textarea id="source">
 
-      # Functional Rust
+      # .title[Functional Rust]
 
-      ## An Exploration
+      # An Exploration
 
       Lisa Passing - LambdaDays 2018
 
       ---
 
       # $ whoami
+
+      --
+
+      Hi, I'm Lisa 👋
 
       --
 
@@ -115,7 +94,6 @@
 
       - relatively young (1.0.0 was released in 2015)
 
-
       --
 
       - gaining popularity
@@ -128,12 +106,7 @@
 
       --
 
-      No, more like, multi-paradigm and imperative.
-
-      ---
-
-      class: center, middle
-      ## Why are we even here then?
+      No, more like, imperative and multi-paradigm.
 
       ---
 
@@ -176,17 +149,6 @@
 
       ---
 
-      class: center, middle
-
-      ## Let's get functional
-
-      ---
-
-      class: center, middle
-      Ready?
-
-      ---
-
       # Disclaimer
 
       --
@@ -195,9 +157,18 @@
 
       --
 
-      Rust's concepts are not complicated but you need to have them present all at once.
+      The learning curve can be more like a wall you hit.
 
-      That can be tough in the beginnning.
+      ---
+
+      class: center, middle
+
+      ## Let's get functional
+
+      ---
+
+      class: center, middle
+      Ready?
 
       ---
 
@@ -218,7 +189,7 @@
 
       ---
 
-      # (Im)Mutability
+      # Immutability
 
       --
 
@@ -249,13 +220,13 @@
       ```
       ---
 
-      # (Im)Mutability
+      # Immutability
 
       - per default all variables are immutable
 
       --
 
-      - but you can opt-into mutability
+      - you can opt-into mutability
 
       --
 
@@ -269,11 +240,11 @@
 
       ---
 
-      # (Im)Mutability
+      # Immutability
 
       - per default all variables are immutable
 
-      - but you can opt-into mutability
+      - you can opt-into mutability
 
       --
 
@@ -289,7 +260,7 @@
 
       ---
 
-      # (Im)Mutability .small[pt2]
+      # Immutability .small[pt2]
 
       --
 
@@ -301,13 +272,14 @@
 
       --
 
-      - Ownership and the Borrow-checker* take care of a lot of involuntary mutation
-
-      .small[`* both are large topic that are left out in this talk`]
+      - there are community implemtations ([github.com/bodil/im-rs](https://github.com/bodil/im-r))
 
       --
 
-      - there are community efforts ([im-rs](https://github.com/bodil/im-rs))
+      - Ownership and Borrowing* take care of common pitfalls of mutability
+
+      .small[`* large topics that are left out in this talk`]
+
 
       ---
 
@@ -327,10 +299,6 @@
 
       --
 
-      - indicated by `fn` keyword
-
-      --
-
       ```rust
       fn main() {
         println!("Hello World");
@@ -341,11 +309,9 @@
 
       # Functions
 
-      - indicated by `fn` keyword
-
       --
 
-      - a function can have parameters
+      - can have parameters (but not an arbitrary number)
 
       --
 
@@ -367,11 +333,7 @@
 
       # Functions
 
-      - indicated by `fn` keyword
-
-      - no aribtraty number of
-
-      - a function can have parameters
+      - can have parameters (but not an arbitrary number)
 
       - if it has params, types must be annotated
 
@@ -379,9 +341,7 @@
 
       - if it returns a value, types must be annotated
 
-      ---
-
-      # Functions .small[continued]
+      --
 
       ```rust
       fn main() {
@@ -392,14 +352,28 @@
         x
       }
       ```
+      ---
+
+      # What does a `fn` return?
+
       --
-      ```bash
-      => Hello 7
+
+      ```rust
+      fn main() {
+        println!("Hello {}", id(7));
+      }
+
+      fn id(x: u32) -> u32 {
+        x
+      }
       ```
+
       ---
 
       class: center, middle
-      # What does a `fn` return?
+
+      # ;
+
       ---
 
       # Statements vs Expressions
@@ -440,11 +414,13 @@
 
       ---
 
-      # Types and Traits
+      # Types
 
       --
 
-      - Rust is statically typed with type inference
+      - Rust is statically typed
+
+      - with type inference
 
       ---
 
@@ -456,7 +432,7 @@
 
       --
 
-      - `Traits` allow implementation of functionality
+      - `Traits` abstact implementation of functionality
 
       --
 
@@ -474,9 +450,7 @@
 
       ---
 
-
-      # Monads, maybe?
-
+      # Enums and Pattern matching
       --
 
       - `Enums` are types with enumerated possible values
@@ -495,7 +469,7 @@
       ```
       ---
 
-      # Monads, maybe?
+      # Enums and Pattern matching
 
       - `Enums` are types with enumerated possible values
 
@@ -514,7 +488,7 @@
       --
 
       ```rust
-      plus_one(Some(5)).expect("No number given");
+      plus_one(Some(5)).unwrap();
       ```
 
       ---
@@ -543,15 +517,11 @@
 
       --
 
-        ➪ creating functions dynamically and passing them around is not possible
+        ➪ creating functions dynamically and passing them around is not (easily) possible
 
       --
 
-      - Passing around function pointers??? Probably not
-
-      --
-
-      - fn can't capture environement
+      - can't capture values from environment
 
       --
 
@@ -560,7 +530,7 @@
 
       ---
 
-      # Closures in Rust
+      # Closures
 
       --
 
@@ -574,7 +544,7 @@
 
       ```rust
 
-      let a_clojure = |num| {
+      let a_closure = |num| {
         num * num
       }
 
@@ -582,13 +552,13 @@
       --
 
       ```rust
-      a_clojure(7)
+      a_closure(7)
       ```
       ---
 
-      # Closures in Rust
+      # Closures
 
-      - anonymous functions that can capture values from their context
+      - anonymous functions that can capture values from their environment
 
       - can be saved in variables and used as arguments
 
@@ -600,58 +570,62 @@
 
       ---
 
-      # Enter Iterators
+      # Iterators
 
       --
 
       - `Trait` that handles logic to manage the iteration of a sequence
 
-      - `Iterators` are thread safe
+      --
+
+      - `Iterators` are thread-safe
+
+      --
 
       - `Iterators` are lazy
 
       --
 
       ```rust
-      let victor = vec!["CA", "CO", "ID", "IN", "IO", "MT", "NY", "SD"];
+      let v1 = vec![1, 2, 3, 4, 5];
 
-      let vic_iter = victor.iter();
+      let v2 = v1.iter();
 
       ```
 
       --
 
       ```rust
-      for v in vic_iter {
+      for v in v2 {
         println!("{}", v);
       }
       ```
 
       ---
 
-      # Enter Iterators .small[pt2]
+      # Iterators .small[pt2]
 
       - can take closures as argument
 
       --
 
-      - __consuming adaptors__ use up the iterator
+      - __consuming adaptors__ use up the `Iterator`
 
       --
 
       ```rust
-      let v1 = [1, 2, 3, 4];
+      let v1 = vec![1, 2, 3, 4];
       let v2 = v1.iter().fold(0, |acc, &x| acc + x);
       ```
 
       --
 
-      - __iterator adaptors__ can transform one iterator into another
+      - __iterator adaptors__ can transform one `Iterator` into another
 
       --
 
       ```rust
-      let v1 = [1, 2, 3, 4];
+      let v1 = vec![1, 2, 3, 4];
       let v2 = v1.iter().map(|x| x + 1).fold(0, |acc, x| acc + x);
       ```
 
@@ -695,7 +669,31 @@
       }
       ```
 
-      .small[[Example taken from the book](https://doc.rust-lang.org/book/second-edition/ch13-02-iterators.html#implementing-the-iterator-trait-to-create-our-own-iterators)]
+      ---
+
+      ## Implementing the Iterator trait .small[pt3]
+
+      --
+
+      ```rust
+      let counter = Counter::new();
+
+      let even_nums: Vec<u32> = counter.filter(|x| {
+        if x % 2 == 0 {
+          true
+        } else {
+          false
+        }
+      }).collect();
+
+      println!("Even: {:?}", even_nums);
+
+      ```
+      --
+
+      ```bash
+      Even: [2, 4]
+      ```
 
       ---
 
