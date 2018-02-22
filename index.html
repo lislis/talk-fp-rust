@@ -92,6 +92,10 @@
 
       --
 
+      - safe, fast and concurrent
+
+      --
+
       - relatively young (1.0.0 was released in 2015)
 
       --
@@ -523,10 +527,10 @@
 
       - can't capture values from environment
 
-      --
+      ---
 
-      __But__ there is a special case ...
-
+      class: middle, center
+      But there is another way!
 
       ---
 
@@ -676,17 +680,20 @@
       --
 
       ```rust
-      let counter = Counter::new();
 
-      let even_nums: Vec<u32> = counter.filter(|x| {
-        if x % 2 == 0 {
-          true
-        } else {
-          false
-        }
-      }).collect();
+      fn main() {
+        let counter = Counter::new();
 
-      println!("Even: {:?}", even_nums);
+        let even_nums: Vec<u32> = counter.filter(|x| {
+          if x % 2 == 0 {
+            true
+          } else {
+            false
+          }
+        }).collect();
+
+        println!("Even: {:?}", even_nums);
+      }
 
       ```
       --
