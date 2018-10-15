@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Functional Rust - An Exploration - LambdaDays 2018</title>
+    <title>Rust and Haskell, sitting in a tree  - Lambda.World 2018</title>
     <style>
      html, body {
        color: #333;
@@ -43,7 +43,21 @@
      }
 
      .title {
-       font-size: 2em
+       font-size: 1.5em;
+       margin-bottom: 0;
+     }
+     h1 + h1 {
+       margin-top: -0.5em;
+     }
+
+     .flex {
+       display: flex;
+       justify-content: space-evenly;
+     }
+     .flex-helper {}
+
+     .contain {
+       background-size: contain !important;
      }
 
     </style>
@@ -51,11 +65,16 @@
   <body>
     <textarea id="source">
 
-      # .title[Functional Rust]
+      # .title[Rust and Haskell],
+      # sitting in a tree
 
-      # An Exploration
+      .flex[
+      ![Lambda.World](/img/lambdaworld-160x160.png)
 
-      Lisa Passing - LambdaDays 2018
+      .flex-helper[
+      Lisa '[lislis](https://lislis.de/)' Passing
+
+      [Lambda.World Cádiz](http://cadiz.lambda.world/) 2018]]
 
       ---
 
@@ -67,15 +86,17 @@
 
       --
 
-      Berlin based web dev, hobby game dev, wannabe digital artist.
+      Web dev, game jammer, wannabe digital artist, fp enthusiast, etc
 
       --
 
-      Co-organizer of [ClojureBridge Berlin](http://clojurebridge-berlin.org/) and various [CryptoParties](https://www.cryptoparty.in/berlin).
+      Co-organizer of [ClojureBridge Berlin](http://clojurebridge-berlin.org/)
 
       --
 
-      I've spoken at [RustFest Kyiv](http://2017.rustfest.eu/) and [RustFest Zürich](http://zurich.rustfest.eu/).
+      I thought of a pun when writing the talk title,
+      but decided the pun doesn't work when writing the talk
+      `¯\_(ツ)_/¯`
 
       ---
 
@@ -84,266 +105,102 @@
 
       ---
 
-      # Rust is
+      class: contain
+      background-image: url(img/rust-lang-website.png)
+
+      ---
+
+      class: contain
+      background-image: url(img/rust-lang-inference.png)
+
+      ---
+
+      class: contain
+      background-image: url(img/rust-lang-pattern.png)
+
+      ---
+
+      class: contain
+      background-image: url(img/rust-lang-traits.png)
+
+      ---
+
+      class: contain
+      background-image: url(img/rust-lang-zero.png)
+
+      ---
+
+      # Let's see
 
       --
 
-      - a systems progamming language (like C/ C++)
+      - type inference
+
+      - pattern matching
+
+      - trait-based generics
+
+      - zero-cost abstractions
 
       --
 
-      - safe, fast and concurrent
-
-      --
-
-      - relatively young (1.0.0 was released in 2015)
-
-      --
-
-      - gaining popularity
+      ### Could make a pretty good fp talk 🤔
 
       ---
 
       class: center, middle
 
-      ## Is Rust a functional language?
+      # Type inference
+
+      ---
+
+      class: middle
+      background-image: url(img/haskell.svg)
+
+      ## _Did someone say type inference?_
+
+      ---
+
+      # Type inference in Haskell
+
+
+
+
+      ---
+
+      # Types in Rust
 
       --
 
-      No, more like, imperative and multi-paradigm.
-
-      ---
-
-      background-image: url(img/shrug2.gif)
-      background-size: cover
-
-      ---
-
-      ## Two reasons
-
-      --
-
-      1. We can still apply functional thinking non-functional languages
-
-      --
-
-      2. Rust drew inspiration from functional languages
-
-      --
-
-      3.* Rust will be important and knowing it will be useful
-
-
-      .small[`* one-off-error joke`]
-
-      ---
-
-      background-image: url(img/humble-1.png)
-      background-size: cover
-
-      ---
-
-      background-image: url(img/humble-2.png)
-      background-size: contain
-
-      ---
-
-      background-image: url(img/humble-3.png)
-      background-size: contain
-
-      ---
-
-      # Disclaimer
-
-      --
-
-      This is not a complete overview of Rust.
-
-      --
-
-      The learning curve can be more like a wall you hit.
-
-      ---
-
-      class: center, middle
-
-      ## Let's get functional
-
-      ---
-
-      class: center, middle
-      Ready?
-
-      ---
-
-      class: center, middle
-      Ready?
-
-      ---
-
-      # Checklist
-
-      ☐ Immutability
-
-      ☐ Functions
-
-      ☐ Types and Traits
-
-      ☐ Higher Order Functions
-
-      ---
-
-      # Immutability
-
-      --
-
-      - per default all variables are immutable
+      - Types are infered when possible
 
       --
 
       ```rust
       fn main() {
 
-        let a = "hello";
-        a = "foo";
+        let elem: u8 = 5;
+        let mut vec = Vec::new();
+
+        vec.push(elem);
+
+        println!("{:?}", vec);
       }
       ```
 
       --
 
-      ```rust
-      error[E0384]: cannot assign twice to immutable variable `a`
-       --> src/main.rs:4:5
-        |
-      3 |     let a = "Hello";
-        |         - first assignment to `a`
-      4 |     a = "foo";
-        |     ^^^^^^^^^ cannot assign twice to immutable variable
-
-      error: aborting due to previous error
-      ```
-      ---
-
-      # Immutability
-
-      - per default all variables are immutable
-
-      --
-
-      - you can opt-into mutability
-
-      --
-
-      ```rust
-      fn main() {
-
-        let mut a = "hello";
-        a = "foo";
-      }
+      ```bash
+      [5]
       ```
 
       ---
 
-      # Immutability
+      # Types in Rust
 
-      - per default all variables are immutable
+      - Types are infered when possible
 
-      - you can opt-into mutability
-
-      --
-
-      - constants are always immutable
-
-      ```rust
-      const MAX_POINTS: u32 = 1000;
-      ```
-
-      --
-
-      - _Sidenote_: type annotation on variable assignment is optional
-
-      ---
-
-      # Immutability .small[pt2]
-
-      --
-
-      - Rust does not implement persistent datastructures
-
-      --
-
-        ➪ copying and allocating large quantities of data comes with performance cost
-
-      --
-
-      - there are community implementations ([github.com/bodil/im-rs](https://github.com/bodil/im-r))
-
-      --
-
-      - Ownership and Borrowing* take care of common pitfalls of mutability
-
-      .small[`* large topics that are left out in this talk`]
-
-
-      ---
-
-      # Checklist
-
-      ☑ Immutability
-
-      ☐ Functions
-
-      ☐ Types and Traits
-
-      ☐ Higher Order Functions
-
-      ---
-
-      # Functions
-
-      --
-
-      ```rust
-      fn main() {
-        println!("Hello World");
-      }
-      ```
-
-      ---
-
-      # Functions
-
-      --
-
-      - can have parameters (but not an arbitrary number)
-
-      --
-
-      - if it has params, types must be annotated
-
-      --
-
-      ```rust
-      fn main() {
-        id(7);
-      }
-
-      fn id(x: u32) {
-        println!("Hello {}", x);
-      }
-      ```
-
-      ---
-
-      # Functions
-
-      - can have parameters (but not an arbitrary number)
-
-      - if it has params, types must be annotated
-
-      --
-
-      - if it returns a value, types must be annotated
+      - Functions have to have type annotations
 
       --
 
@@ -351,58 +208,27 @@
       fn main() {
         println!("Hello {}", id(7));
       }
-
       fn id(x: u32) -> u32 {
         x
       }
       ```
-      ---
-
-      # What does a `fn` return?
-
-      --
-
-      ```rust
-      fn main() {
-        println!("Hello {}", id(7));
-      }
-
-      fn id(x: u32) -> u32 {
-        x
-      }
+      ```bash
+      Hello 7
       ```
 
       ---
 
-      class: center, middle
-
-      # ;
+      # Pattern matching
 
       ---
 
-      # Statements vs Expressions
-      --
-
-      - Statements perform actions
-
-      - Expressions return values
-
-      --
-
-      - Expressions do not have a trailing semicolon
+      # Traits and Generics
 
       ---
 
-      # Statements vs Expressions .small[pt2]
+      # Zero-cost abstractions
 
-      --
-      - Function declarations are statements
-
-      - Function calls are expressions
-
-      --
-
-      - Statements __cannot__ be assigned to variables, expressions __can__
+      ---
 
       ---
 
@@ -757,7 +583,7 @@
     </textarea>
     <script src="remark.min.js"></script>
     <script>var slideshow = remark.create({
-       ratio: '16:9',
+       ratio: '4:3',
        navigation: {
          scroll: false
        }});
