@@ -157,18 +157,21 @@
       class: middle
       background-image: url(img/haskell.svg)
 
-      ## _Did someone say type inference?_
+      ## _Did someone say 'type inference'?_
 
       ---
 
-      # Type inference in Haskell
+      ## Type inference in Haskell
 
+      @todo simple type inference
 
+      @todo example with a list
 
+      @todo example with a function
 
       ---
 
-      # Types in Rust
+      ## Types in Rust
 
       --
 
@@ -196,7 +199,7 @@
 
       ---
 
-      # Types in Rust
+      ## Types in Rust
 
       - Types are infered when possible
 
@@ -218,367 +221,155 @@
 
       ---
 
+      class: center, middle
+
+      # Trait-based generics
+
+      ---
+
+      ## What are generics??
+
+      - more abstract stand in for a concrete values
+
+      @ todo
+
+      ---
+
+      class: middle
+      background-image: url(img/haskell.svg)
+
+      ## _Oh, did you mean 'type variables'?_
+
+      ---
+
+      ## Type variables in Haskell
+
+      @todo
+
+      @todo polymorphic functions?
+
+      ---
+
+      ## What are Traits?
+
+      --
+
+      - Traits define some behaviour that can be implemented by a Type
+
+      ---
+
+      class: middle
+      background-image: url(img/haskell.svg)
+
+      ## _Sounds a lot like type classes_
+
+      ---
+
+      ## Type classes in Haskell
+
+      @todo
+
+      ---
+
+      ## And trait based generics?
+
+      --
+
+      @todo
+
+
+      Surprise! Class constraints!
+
+      ---
+
+      class: center, middle
+
       # Pattern matching
 
       ---
 
-      # Traits and Generics
+      class: middle
+      background-image: url(img/haskell.svg)
+
+      ## _Did someone say 'pattern matching'?_
 
       ---
+
+      ## Pattern matching in Haskell
+
+      --
+
+      - @todo
+
+      ---
+
+      class: center, middle
 
       # Zero-cost abstractions
 
       ---
 
-      ---
-
-      # Checklist
-
-      ☑ Immutability
-
-      ☑ Functions
-
-      ☐ Types and Traits
-
-      ☐ Higher Order Functions
-
-      ---
-
-      # Types
+      ## Zero-cost abstractions
 
       --
 
-      - Rust is statically typed
+      - Having higher level tools without additional performance cost!
 
-      - with type inference
+      --
+
+      - Let's look at
+
+      --
+
+        - Higher order functions
+
+      --
+
+        - Closures
 
       ---
 
-      # Generic Types and Traits
+      ### Higher order functions
 
-      --
 
-      - `Generics` are stand-ins for concrete types
-
-      --
-
-      - `Traits` abstact implementation of functionality
-
-      --
-
-        - on concrete types
-
-      --
-
-        - on generic types
-
-      --
-
-      ```rust
-      impl Log for <T : Debug> {}
-      ```
+      @todo
 
       ---
 
-      # Enums and Pattern matching
-      --
+      ### Closures
 
-      - `Enums` are types with enumerated possible values
-
-      --
-
-      - `Enum variants` can hold `generic` Types
-
-      --
-
-      ```rust
-      enum Option<T> {
-        Some<T>,
-        None,
-      }
-      ```
-      ---
-
-      # Enums and Pattern matching
-
-      - `Enums` are types with enumerated possible values
-
-      - `Enum variants` can hold `generic` Types
-
-
-      ```rust
-      fn plus_one(x: Option<i32>) -> Option<i32> {
-        match x {
-          None => None,
-          Some(i) => Some(i + 1),
-        }
-      }
-      ```
-
-      --
-
-      ```rust
-      plus_one(Some(5)).unwrap();
-      ```
+      #todo
 
       ---
 
-      # Checklist
+      # So is Rust a functional language?
 
-      ☑ Immutability
+      --
 
-      ☑ Functions
+      Well, no.
 
-      ☑ Types and Traits
+      It very imperative with multi-paragim cherry-picks
 
-      ☐ Higher Order Functions
+      --
+
+      But it definitely learned some good things from the functional world
+
+      and Haskell specifically
 
       ---
 
-      # Higher Order Functions
+      ## Thank you!
 
-      --
+      - 📧 mail@lislis.de
+      - 🐘 lislis@toot.cat
+      - 🐙 https://github.com/lislis
+      - 📽️ https://lislis.de/talks/fp-rust
 
-      - function names are part of a function's type
+      ### Resources
 
-      --
-
-        ➪ functions with same signature are still different
-
-      --
-
-        ➪ creating functions dynamically and passing them around is not (easily) possible
-
-      --
-
-      - can't capture values from environment
-
-      ---
-
-      class: middle, center
-      But there is another way!
-
-      ---
-
-      # Closures
-
-      --
-
-      - anonymous functions that can capture values from their environment
-
-      --
-
-      - can be saved in variables and used as arguments
-
-      --
-
-      ```rust
-
-      let a_closure = |num| {
-        num * num
-      }
-
-      ```
-      --
-
-      ```rust
-      a_closure(7)
-      ```
-      ---
-
-      # Closures
-
-      - anonymous functions that can capture values from their environment
-
-      - can be saved in variables and used as arguments
-
-      - type annotations are optional
-
-      --
-
-      - _Sidenote_: [example implementation of memoization with closures](https://doc.rust-lang.org/book/second-edition/ch13-01-closures.html#storing-closures-using-generic-parameters-and-the-fn-traits)
-
-      ---
-
-      # Iterators
-
-      --
-
-      - `Trait` that handles logic to manage the iteration of a sequence
-
-      --
-
-      - `Iterators` are thread-safe
-
-      --
-
-      - `Iterators` are lazy
-
-      --
-
-      ```rust
-      let v1 = vec![1, 2, 3, 4, 5];
-
-      let v2 = v1.iter();
-
-      ```
-
-      --
-
-      ```rust
-      for v in v2 {
-        println!("{}", v);
-      }
-      ```
-
-      ---
-
-      # Iterators .small[pt2]
-
-      - can take closures as argument
-
-      --
-
-      - __consuming adaptors__ use up the `Iterator`
-
-      --
-
-      ```rust
-      let v1 = vec![1, 2, 3, 4];
-      let v2 = v1.iter().fold(0, |acc, &x| acc + x);
-      ```
-
-      --
-
-      - __iterator adaptors__ can transform one `Iterator` into another
-
-      --
-
-      ```rust
-      let v1 = vec![1, 2, 3, 4];
-      let v2 = v1.iter().map(|x| x + 1).fold(0, |acc, x| acc + x);
-      ```
-
-      ---
-
-      ## Implementing the Iterator trait
-      --
-
-      ```rust
-      struct Counter {
-        count: u32,
-      }
-
-      impl Counter {
-        fn new() -> Counter {
-          Counter { count: 0 }
-        }
-      }
-      ```
-
-      .small[[Example taken from the book](https://doc.rust-lang.org/book/second-edition/ch13-02-iterators.html#implementing-the-iterator-trait-to-create-our-own-iterators)]
-      ---
-
-      ## Implementing the Iterator trait .small[pt2]
-      --
-
-      ```rust
-
-      impl Iterator for Counter {
-        type Item = u32;
-
-        fn next(&mut self) -> Option<Self::Item> {
-          self.count += 1;
-
-          if self.count < 6 {
-            Some(self.count)
-          } else {
-            None
-          }
-        }
-      }
-      ```
-
-      ---
-
-      ## Implementing the Iterator trait .small[pt3]
-
-      --
-
-      ```rust
-
-      fn main() {
-        let counter = Counter::new();
-
-        let even_nums: Vec<u32> = counter.filter(|x| {
-          if x % 2 == 0 {
-            true
-          } else {
-            false
-          }
-        }).collect();
-
-        println!("Even: {:?}", even_nums);
-      }
-
-      ```
-      --
-
-      ```bash
-      Even: [2, 4]
-      ```
-
-      ---
-
-      # Checklist
-
-      ☑ Immutability
-
-      ☑ Functions
-
-      ☑ Types and Traits
-
-      ☑ Higher Order functions
-
-      ---
-
-      class: center, middle
-
-      phew
-
-      ---
-
-      class: center, middle
-
-      ## That's (almost) all, folks!
-
-      ---
-
-      class: center, middle
-
-      # Explore functional Rust yourself!
-
-      ---
-
-      ## Special <3
-
-      **Florian** ([@argorak](https://twitter.com/Argorak)) and **Andrew** ([@andrewhobden](https://twitter.com/andrewhobden))
-
-      for reviewing this talk!
-
-      **Carol** ([@carols10cents](https://twitter.com/Carols10cents))
-
-      for the amazing work on the [2nd edition Rust book](https://doc.rust-lang.org/book/second-edition/)!
-
-      ---
-
-      # Thank you!
-
-      mail[at]lislis[dot]de
-
-      https://github.com/lislis
-
-      (Slides) https://lislis.de/talks/fp-rust
+      - The Rust Programming language
+      - Rust by example
+      - Learn you a Haskell
 
     </textarea>
     <script src="remark.min.js"></script>
