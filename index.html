@@ -328,7 +328,7 @@
       --
 
       .one-p[
-      Traits define behaviour that Types can implement]
+      Traits define behaviour that Types can implement. ]
 
       --
 
@@ -462,21 +462,43 @@
       ```
       ---
 
-      ## So trait-based generics are ...?
+      ## Trait bounds!
 
       --
 
+      ## Class constraints!
 
       --
 
-      @todo
+      ```rust
+      // Rust
+
+      use std::fmt::Display;
+
+      fn shout_out<T: Display>(s: T) -> String {
+        format!("{}!!!!!!!!!", s)
+      }
+
+      fn main() {
+        println!("{}", shout_out("Uuuuh"));
+      }
+      ```
 
 
-      Surprise! Class constraints!
+      --
+
+      ```haskell
+      -- Haskell
+
+      shoutOut :: (Show a) => a -> String
+      shoutOut x = (show x) ++ "!!!!!!!!!!"
+
+      shoutOut "Yeah"
+      ```
 
       ---
 
-      class: center, middle
+      class: center, middle, invert
 
       # Pattern matching
 
@@ -485,7 +507,7 @@
       class: middle
       background-image: url(img/haskell.svg)
 
-      ## _Did someone say 'pattern matching'?_
+      > Did someone say **pattern matching**?
 
       ---
 
@@ -493,11 +515,95 @@
 
       --
 
-      - @todo
+      ```haskell
+      data Shape = Circle Float Float Float | Rectangle Float Float Float Float
+
+      surface :: Shape -> Float
+      surface (Circle _ _ r) = pi * r ^ 2
+      surface (Rectangle x1 y1 x2 y2) = (abs $ x2 - x1)
+                                        * (abs $ y2 - y1)
+      ```
+      --
+
+      ```haskell
+      surface $ Circle 10 10 10
+      ```
+      --
+
+      ```bash
+      314.15927
+      ```
 
       ---
 
-      class: center, middle
+      class: middle
+      background-image: url(img/rust-logo.jpg)
+
+      > And in  Rust?
+
+      ---
+
+      ## Pattern matching in Rust
+
+      --
+
+      ```rust
+      use std::f32::consts::PI;
+
+      struct Circle(f32, f32, f32);
+      struct Rectangle(f32, f32, f32, f32);
+
+      enum Shape {
+        Circle(f32, f32, f32),
+        Rectangle(f32, f32, f32, f32)
+      }
+
+      ```
+      ---
+
+      ## Pattern matching in Rust
+
+      ```rust
+      use std::f32::consts::PI;
+
+      struct Circle(f32, f32, f32);
+      struct Rectangle(f32, f32, f32, f32);
+
+      enum Shape {
+        Circle(f32, f32, f32),
+        Rectangle(f32, f32, f32, f32)
+      }
+
+      fn surface(s: Shape) -> f32 {
+        match s {
+          Shape::Circle(_, _, r) => ( PI * r.powf(2.0)  ),
+          Shape::Rectangle(x1, y1, x2, y2) => {
+            (x2 - x1).abs() * (y2 - y1).abs()
+          },
+        }
+      }
+
+      ```
+      ---
+
+      ## Pattern matching in Rust
+
+      ```rust
+      fn main() {
+        let circle = Shape::Circle(10.0, 10.0, 10.0);
+        println!("{:?}", surface(circle));
+      }
+
+      ```
+
+      --
+
+      ```bash
+      314.15927
+      ```
+
+      ---
+      class: center, middle, invert
 
       # Zero-cost abstractions
 

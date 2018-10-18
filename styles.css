@@ -16,6 +16,14 @@ p, li {
 h1 {
   margin-bottom: 1em;
 }
+
+code {
+  background-color: var(--gren-rgba);
+  border-radius: 4px;
+  padding: .2em;
+  font-size: 0.9em;
+}
+
 blockquote {
   display: inline-block;
   margin: 0;
