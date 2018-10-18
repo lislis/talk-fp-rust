@@ -3,70 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>Rust and Haskell, sitting in a tree  - Lambda.World 2018</title>
-    <style>
-     html, body {
-       color: #333;
-     }
-     p, li {
-       font-size: 28px;
-       line-height: 1.5;
-     }
-     .center h1, .center h2, .center h3 {
-       line-height: 1.5;
-     }
-     h1 {
-       margin-bottom: 1em;
-     }
-     blockquote {
-       margin: 0;
-       padding: .1rem 1rem;
-       color: #666;
-       border-left: 5px solid #666;
-     }
-     a,
-     a:visited {
-       color: inherit
-     }
-     a:hover,
-     a:focus,
-     a:active {
-       color: #D89018;
-     }
-
-     .remark-code {
-       max-height: 400px;
-       overflow: scroll
-     }
-
-     .small {
-       font-size: 0.7em;
-     }
-
-     .title {
-       font-size: 1.5em;
-       margin-bottom: 0;
-     }
-     h1 + h1 {
-       margin-top: -0.5em;
-     }
-
-     .flex {
-       display: flex;
-       justify-content: space-evenly;
-     }
-     .flex-helper {}
-
-     .contain {
-       background-size: contain !important;
-     }
-
-    </style>
+    <link href="styles.css" rel="stylesheet">
   </head>
   <body>
     <textarea id="source">
-
-      # .title[Rust and Haskell],
-      # sitting in a tree
+      # .title[Rust and Haskell]
+      # .subtitle[sitting in a tree]
 
       .flex[
       ![Lambda.World](/img/lambdaworld-160x160.png)
@@ -148,7 +90,7 @@
 
       ---
 
-      class: center, middle
+      class: center, middle, invert
 
       # Type inference
 
@@ -157,21 +99,96 @@
       class: middle
       background-image: url(img/haskell.svg)
 
-      ## _Did someone say 'type inference'?_
+      > Did someone say **type inference**?
 
       ---
-
+      layout: true
       ## Type inference in Haskell
 
-      @todo simple type inference
+      ---
 
-      @todo example with a list
+      --
+      ```haskell
+      doubleMe x = x * 2
 
-      @todo example with a function
+      ```
+      ---
+
+      ```haskell
+      doubleMe x = x * 2
+
+      doubleMe 8
+      ```
+
+      ```haskell
+      16
+      ```
+      --
+
+      Haskell infers that this can only work with numbers.
+
+      --
+
+      ```haskell
+      doubleMe "this is a trick!"
+
+      doubleMe []
+      ```
+      --
+
+      ```bash
+      ERROR!
+      ```
+      --
+
+      We get an error for everything else.
 
       ---
 
-      ## Types in Rust
+      This works with lists, too!
+
+      --
+
+      ```haskell
+      doubleFirstOfList xs = head xs * 2
+      ```
+      --
+
+      ```haskell
+      doubleFirstOfList [239, 3482, 23, 23]
+      ```
+      --
+
+      ```bash
+      478
+      ```
+
+      ---
+
+      We don't have to annotate types,
+
+      but it's nice when we do.
+
+      --
+
+      ```haskell
+      doubleFirstOfList' :: [Int] -> Int
+
+      doubleFirstOfList' xs = head xs * 2
+      ```
+      ---
+
+      layout: false
+      class: middle
+      background-image: url(img/rust-logo.jpg)
+
+      > What about Rust?
+      ---
+
+      layout: true
+      ## Type inference in Rust
+
+      ---
 
       --
 
@@ -181,97 +198,274 @@
 
       ```rust
       fn main() {
+        let elem = 5;
 
-        let elem: u8 = 5;
-        let mut vec = Vec::new();
+        let doubleElem = elem * 2;
 
-        vec.push(elem);
-
-        println!("{:?}", vec);
+        println!("{}", doubleElem);
       }
       ```
-
       --
 
       ```bash
-      [5]
+      10
       ```
-
       ---
 
-      ## Types in Rust
+      ```rust
+      fn main() {
+        let vector = vec![2, 16, 348];
 
-      - Types are infered when possible
+        let double_first_of_vec = vector[0] * 2;
 
-      - Functions have to have type annotations
+        println!("{}", double_first_of_vec);
+      }
+      ```
+      --
+
+      ```bash
+      4
+      ```
+      ---
+
+      .one-p[
+      Function params and return values
+
+      have to always be annotated!]
 
       --
 
       ```rust
+      fn double_first_of_vec(v:Vec<u32>) -> u32 {
+        v[0] * 2
+      }
+
       fn main() {
-        println!("Hello {}", id(7));
+        let vector = vec![2, 16, 348];
+        println!("{}", double_first_of_vec(vector));
       }
-      fn id(x: u32) -> u32 {
-        x
-      }
+
       ```
+      --
       ```bash
-      Hello 7
+      4
       ```
 
       ---
 
-      class: center, middle
+      layout: false
+      class: center, middle, invert
 
       # Trait-based generics
 
       ---
 
-      ## What are generics??
+      ## What are generics in Rust?
 
-      - more abstract stand in for a concrete values
+      --
 
-      @ todo
+      An abstract stand-in for a concrete values
+
+      --
+
+      ```rust
+      fn first_and_last<T>(v: &Vec<T>) -> Vec<&T> {
+        vec![v.first().unwrap(),
+             v.iter().last().unwrap()]
+      }
+      ```
+
+      --
+
+      ```rust
+      fn main() {
+        let nums = vec![2, 16, 348];
+        println!("{:?}", first_and_last(&nums));
+
+        let strings = vec!["Hello", "a", "foo", "World"];
+        println!("{:?}", first_and_last(&strings));
+      }
+
+      ```
+      --
+      ```bash
+      [2, 348]
+      ["Hello", "World"]
+
+      ```
 
       ---
 
       class: middle
       background-image: url(img/haskell.svg)
 
-      ## _Oh, did you mean 'type variables'?_
+      > Oh, did you mean **type variables**?
 
       ---
 
       ## Type variables in Haskell
 
-      @todo
+      --
 
-      @todo polymorphic functions?
+      ```haskell
+      firstAndLast :: [a] -> [a]
+      firstAndLast xs = [head xs, last xs]
+      ```
+
+      --
+      ```haskell
+      firstAndLast [45, 28, 645, 23]
+      ```
+
+      ```bash
+      [45, 23]
+      ```
 
       ---
 
-      ## What are Traits?
+      ## What are Traits in Rust?
 
       --
 
-      - Traits define some behaviour that can be implemented by a Type
+      .one-p[
+      Traits define behaviour that Types can implement]
+
+      --
+
+      Example `Display` Trait for user facing string output.
+
+      ---
+
+      class: contain
+      background-image: url(img/display-trait.png)
+
+      ---
+      ### Implementing `Display` on a type
+
+      --
+
+      ```rust
+
+      use std::fmt;
+
+      struct Point {
+        x: i32,
+        y: i32
+      }
+
+      ```
+
+      ---
+
+      ### Implementing `Display` on a type
+
+      ```rust
+
+      use std::fmt;
+
+      struct Point {
+        x: i32,
+        y: i32
+      }
+
+      impl fmt::Display for Point {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+          write!(f, "({}, {})", self.x, self.y)
+        }
+      }
+
+      ```
+      ---
+
+      ### Implementing `Display` on a type
+
+      ```rust
+
+      use std::fmt;
+
+      struct Point {
+        x: i32,
+        y: i32
+      }
+
+      impl fmt::Display for Point {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+          write!(f, "({}, {})", self.x, self.y)
+        }
+      }
+
+      let p = Point { x: 0, y: 0 };
+
+      println!("The point is: {}", p);
+
+      ```
+      --
+
+      ```bash
+      The point is: (0, 0)
+      ```
 
       ---
 
       class: middle
       background-image: url(img/haskell.svg)
 
-      ## _Sounds a lot like type classes_
+      > Sounds a lot like **type classes**
 
       ---
 
       ## Type classes in Haskell
 
-      @todo
+      --
 
+      Let's look at the `Show` type class
+
+      --
+
+      ```haskell
+      data Point = Point { x :: Int
+                         , y :: Int
+                         } deriving (Show)
+
+      ```
+      --
+
+      ```haskell
+      let p1 = Point 2 3
+
+      show p1
+      ```
+      --
+
+      ```bash
+      Point {x = 2, y = 3}
+      ```
       ---
 
-      ## And trait based generics?
+      Alternatively we can make a function
+
+      ```haskell
+      display :: Point -> String
+      display (Point {x=x, y=y}) = "The point is (" ++ show x ++
+                                   "," ++ show y ++")"
+      ```
+      --
+
+      ```haskell
+      let p = Point 0 0
+      display p
+      ```
+      --
+
+      ```bash
+      The point is (0, 0)
+      ```
+      ---
+
+      ## So trait-based generics are ...?
+
+      --
+
 
       --
 
@@ -360,16 +554,17 @@
 
       ## Thank you!
 
+      .no-bullets[
       - 📧 mail@lislis.de
       - 🐘 lislis@toot.cat
       - 🐙 https://github.com/lislis
-      - 📽️ https://lislis.de/talks/fp-rust
+      - 📽️ https://lislis.de/talks/fp-rust]
 
       ### Resources
 
-      - The Rust Programming language
-      - Rust by example
-      - Learn you a Haskell
+      - [The Rust Programming Language](https://doc.rust-lang.org/book/second-edition/index.html)
+      - [Rust by Example](https://doc.rust-lang.org/rust-by-example/)
+      - [Learn you a Haskell](http://learnyouahaskell.com/chapters)
 
     </textarea>
     <script src="remark.min.js"></script>

@@ -1,0 +1,101 @@
+:root {
+  --grenadier: #8f4e8b;
+  --gren-rgba: rgba(143, 78, 139, 0.8);
+}
+
+html, body {
+  color: #040101;
+}
+p, li {
+  font-size: 28px;
+  line-height: 1.5;
+}
+.center h1, .center h2, .center h3 {
+  line-height: 1.5;
+}
+h1 {
+  margin-bottom: 1em;
+}
+blockquote {
+  display: inline-block;
+  margin: 0;
+  padding: .1rem 1rem;
+  font-style: italic;
+  color: white;
+  background-color: var(--gren-rgba);
+}
+a,
+a:visited {
+  text-decoration: none;
+  background-image: linear-gradient(to top,
+                                    transparent 8%,
+                                    var(--grenadier) 9%,
+                                    var(--grenadier) 15%,
+                                    transparent 6%);
+  color: inherit;
+}
+a:hover,
+a:focus,
+a:active {
+  background-image: linear-gradient(to top,
+                                    transparent 8%,
+                                    var(--grenadier) 9%,
+                                    var(--grenadier) 90%,
+                                    transparent 91%);
+}
+
+.remark-code {
+  max-height: 400px;
+  overflow: scroll
+}
+
+.small {
+  font-size: 0.7em;
+}
+
+.title {
+  font-size: 1.7em;
+  margin-bottom: 0;
+  background-color: var(--grenadier);
+  color: white;
+}
+.subtitle {
+  background-color: var(--grenadier);
+  color: white;
+}
+
+h1 + h1 {
+  margin-top: -1em;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.flex-helper {}
+
+.contain {
+  background-size: contain !important;
+}
+
+.no-bullets ul {
+  padding: 0;
+}
+
+.no-bullets li {
+  list-style: none;
+  margin: 0;
+}
+
+.one-p p + p {
+  margin-top: -1em;
+}
+
+.invert {
+  background-color: var(--grenadier);
+}
+
+.invert h1 {
+  color: white;
+}
