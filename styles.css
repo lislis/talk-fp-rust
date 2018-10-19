@@ -58,7 +58,7 @@ a:active {
 }
 
 .small {
-  font-size: 0.7em;
+  font-size: 0.5em;
 }
 
 .title {
@@ -106,4 +106,9 @@ h1 + h1 {
 
 .invert h1 {
   color: white;
+}
+
+.bg-right {
+  background-size: contain;
+  background-position: right;
 }

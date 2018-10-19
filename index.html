@@ -38,7 +38,7 @@
 
       I thought of a pun when writing the talk title,
       but decided the pun doesn't work when writing the talk
-      `¯\_(ツ)_/¯`
+      <pre>¯\_(ツ)_/¯</pre>
 
       ---
 
@@ -484,7 +484,6 @@
       }
       ```
 
-
       --
 
       ```haskell
@@ -495,7 +494,6 @@
 
       shoutOut "Yeah"
       ```
-
       ---
 
       class: center, middle, invert
@@ -609,52 +607,231 @@
 
       ---
 
-      ## Zero-cost abstractions
+      class: middle
+      background-image: url(img/rust-logo.jpg)
 
-      --
+      >.one-p[
+      Using higher level concepts
 
-      - Having higher level tools without additional performance cost!
-
-      --
-
-      - Let's look at
-
-      --
-
-        - Higher order functions
-
-      --
-
-        - Closures
+      at no additional performance cost!]
 
       ---
 
-      ### Higher order functions
-
-
-      @todo
-
-      ---
-
-      ### Closures
-
-      #todo
-
-      ---
-
-      # So is Rust a functional language?
+      ## Higher order functions
+      ## in Haskell
 
       --
 
-      Well, no.
-
-      It very imperative with multi-paragim cherry-picks
+      Like map
 
       --
 
-      But it definitely learned some good things from the functional world
+      ```haskell
+      map (+3) [1,5,3,1,6]
+      ```
+      --
 
-      and Haskell specifically
+      ```bash
+      [4,8,6,4,9]
+      ```
+
+      --
+
+      or filter
+
+      --
+
+      ```haskell
+      filter (>3) [1,5,3,2,1,6,4,3,2,1]
+      ```
+      --
+
+      ```bash
+      [5,6,4]
+      ```
+      ---
+
+      class: middle
+      background-image: url(img/rust-logo.jpg)
+
+      > What about  Rust?
+
+      ---
+
+      ## About functions in Rust .small[(pt 1)]
+
+      --
+
+      Function declarations in Rust are statements.
+
+      Function calls are expressions.
+
+      --
+
+      .one-p[
+      Statements cannot be evaluated and therefore
+
+      not be assigned to variables
+
+      nor used as an arbitrary value.]
+
+      --
+
+      Expressions can be.
+
+      ---
+
+      ## About functions in Rust .small[(pt 2)]
+
+      --
+
+      .one-p[
+      A function's name becomes part of its type,
+
+      therefore two functions with the same signature are still different.]
+
+      --
+
+      .one-p[
+      Dynamically creating functions
+
+      and passing or returning them is
+
+      not (easily) possible because types need to annotated beforehand.]
+
+      ---
+
+      class: middle
+      background-image: url(img/rust-logo.jpg)
+
+      > Wait, no higher order functions in Rust?
+
+      ---
+
+      class: middle
+      background-image: url(img/rust-logo.jpg)
+
+      > There is a another way!
+
+      ---
+
+      ## Closures in Rust
+
+      --
+
+      Closures are anonymous functions that can capture their environment.
+
+      --
+
+      Their declarations can be stores in variables.
+
+      --
+
+      They don't need type annotations for params or return values (Types are inferred on first use).
+
+      --
+
+      Every closure has its own type but implements one of the traits `Fn`, `FnMut`, `FnOnce`. This can be used with trait bounds when defining structs that hold closures.
+
+      ---
+
+      ## Using closures with `Iterator`s
+
+      --
+
+      ```rust
+      fn main() {
+        let vmap: Vec<i32> = vec![1, 5, 3, 1, 6]
+            .into_iter()
+            .map(|x| x + 3)
+            .collect();
+      }
+
+      ```
+
+      ---
+
+      ## Using closures with `Iterator`s
+
+      ```rust
+      fn main() {
+        let vmap: Vec<i32> = vec![1, 5, 3, 1, 6]
+            .into_iter()
+            .map(|x| x + 3)
+            .collect();
+
+        let vfilter: Vec<i32> = vec![1,5,3,2,1,6,4,3,2,1]
+            .into_iter()
+            .filter(|x| x > &3)
+            .collect();
+
+        println!("{:?}", vmap);
+        println!("{:?}", vfilter);
+      }
+
+      ```
+      --
+
+      ```bash
+      [4, 8, 6, 4, 9]
+      [5, 6, 4]
+      ```
+      ---
+
+      class: middle
+      background-image: url(img/rust-logo.jpg)
+
+      >.one-p[
+      ### Zero-cost abstractions
+
+      Using higher level concepts
+
+      at no additional performance cost!]
+
+      ---
+
+      class: center, middle
+
+      _phew_
+
+      --
+
+      That was a lot.
+
+      ---
+
+      # Rust and Haskell
+
+      --
+
+      Rust is not a functional language,
+
+      but it has learned a lot of good things
+
+      from Haskell and the functional world.
+
+      ---
+
+      ## More nice things!
+
+      --
+
+      - [Rust REPL RFC](https://github.com/rust-lang/rfcs/issues/655)
+
+      ---
+
+      class: bg-right
+      background-image: url(img/hkt.jpg)
+
+      ## More nice things!
+
+      - [Rust REPL RFC](https://github.com/rust-lang/rfcs/issues/655)
+
+      - [Generic associated types RFC](https://github.com/rust-lang/rfcs/pull/1598)
+        .one-p[
+        (formerly known as
+
+        associated type constructors)]
 
       ---
 
