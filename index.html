@@ -28,17 +28,15 @@
 
       --
 
-      Web dev, game jammer, wannabe digital artist, fp enthusiast, etc
+      Web dev, game jammer, wannabe digital artist, fp enthusiast
+
+      --
+
+      I come from a dynamically typed language background (JS, Ruby)
 
       --
 
       Co-organizer of [ClojureBridge Berlin](http://clojurebridge-berlin.org/)
-
-      --
-
-      I thought of a pun when writing the talk title,
-      but decided the pun doesn't work when writing the talk
-      <pre>¯\_(ツ)_/¯</pre>
 
       ---
 
@@ -172,8 +170,13 @@
       --
 
       ```haskell
-      doubleFirstOfList' :: [Int] -> Int
+      doubleMe' Int -> Int
+      doubleMe' x = x * 2
+      ```
+      --
 
+      ```haskell
+      doubleFirstOfList' :: [Int] -> Int
       doubleFirstOfList' xs = head xs * 2
       ```
       ---
@@ -267,6 +270,18 @@
       An abstract stand-in for a concrete values
 
       --
+
+      ```rust
+      fn first_and_last<T>(v: &Vec<T>) -> Vec<&T> {
+
+      }
+      ```
+
+      ---
+
+      ## What are generics in Rust?
+
+      An abstract stand-in for a concrete values
 
       ```rust
       fn first_and_last<T>(v: &Vec<T>) -> Vec<&T> {
@@ -462,17 +477,12 @@
       ```
       ---
 
-      ## Trait bounds!
-
-      --
-
-      ## Class constraints!
+      ### Trait bounds!
 
       --
 
       ```rust
       // Rust
-
       use std::fmt::Display;
 
       fn shout_out<T: Display>(s: T) -> String {
@@ -486,9 +496,12 @@
 
       --
 
+      ### Class constraints!
+
+      --
+
       ```haskell
       -- Haskell
-
       shoutOut :: (Show a) => a -> String
       shoutOut x = (show x) ++ "!!!!!!!!!!"
 
@@ -614,6 +627,13 @@
       Using higher level concepts
 
       at no additional performance cost!]
+
+      ---
+
+      class: middle, center
+
+      Example
+      ## Higher order functions
 
       ---
 
@@ -832,6 +852,16 @@
         (formerly known as
 
         associated type constructors)]
+
+      ---
+
+      class: middle, center
+
+      ## Where are the trees?
+
+      I thought of a pun when writing the talk title,
+      but decided the pun doesn't work when writing the talk
+      <pre>¯\_(ツ)_/¯</pre>
 
       ---
 
