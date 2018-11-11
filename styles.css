@@ -1,6 +1,6 @@
 :root {
-  --grenadier: #8f4e8b;
-  --gren-rgba: rgba(143, 78, 139, 0.8);
+  --grenadier: #e93c55;
+  --gren-rgba: #ee6a7d;
 }
 
 html, body {
@@ -62,7 +62,7 @@ a:active {
 }
 
 .title {
-  font-size: 1.7em;
+  font-size: 2em;
   margin-bottom: 0;
   background-color: var(--grenadier);
   color: white;
