@@ -108,6 +108,12 @@ h1 + h1 {
   color: white;
 }
 
+.interm h1 {
+  display: inline;
+  color: white;
+  background-color: var(--grenadier);
+}
+
 .bg-right {
   background-size: contain;
   background-position: right;
