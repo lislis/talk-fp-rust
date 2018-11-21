@@ -71,7 +71,9 @@
 
       --
 
-      - systems programmers who are used to C/ C++
+      - systems programmers who are used to bare metal
+
+      --
 
       - higher level programmers who are used to abstractions
 
@@ -89,23 +91,64 @@
 
       ---
 
-      ## Functions in Rust
+      .p-right[Functions in Rust .small[(pt 1)]]
 
       --
 
-      - definition and types
+      ## Definition
 
       --
 
-      - recursion
+      ```rust
+      fn main() {
+        println!("Hello World");
+      }
+      ```
+      ---
+
+      .p-right[Functions in Rust .small[(pt 1)]]
+
+      ## Definition
+
+      ```rust
+      fn head(v:Vec<u32>) -> u32 {
+        v[0]
+      }
+
+      fn main() {
+        let vector = vec![43, 567, 2, 34];
+        println!("{}", head(vector));
+      }
+      ```
+      --
+
+      - must annotate types on functions
 
       --
 
-      - higher order functions
+      - types of variables can be inferred
+
+      ---
+
+      .p-right[Functions in Rust .small[(pt 2)]]
+
+      ## Recursion
+
+      ---
+
+      .p-right[Functions in Rust .small[(pt 3)]]
 
       --
 
-      - closures
+      ## Higher order functions
+
+      ---
+
+      .p-right[Functions in Rust .small[(pt 4)]]
+
+      --
+
+      ## Closures
 
       ---
 
