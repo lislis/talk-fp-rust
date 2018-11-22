@@ -122,17 +122,47 @@
       ```
       --
 
-      - must annotate types on functions
+      - types of variables can be inferred
 
       --
 
-      - types of variables can be inferred
+      - must annotate types of params and return values
+
+      --
+
+      - returns last expression (_no trailing `;`_)
 
       ---
 
       .p-right[Functions in Rust .small[(pt 2)]]
 
       ## Recursion
+
+      --
+
+      ```rust
+
+      fn fibonacci(nth: i32) -> i32  {
+        match nth {
+          0 =>  { 0 },
+          1 => { 1 },
+          n => {
+            fibonacci( n - 1 ) + fibonacci( n - 2)
+          }
+        }
+      }
+
+      fn main() {
+        println!("{}", fibonacci(6));
+      }
+
+      ```
+
+      --
+
+      ```bash
+      8
+      ```
 
       ---
 
@@ -142,13 +172,77 @@
 
       ## Higher order functions
 
+      --
+
+      Take a function as param and/or return a function
+
+      --
+
+      - we'd have to know the types beforehand to annotate them
+
+      --
+
+      - the types of two named functions with the same signature still have different
+
+      --
+
+      How do we work around that?
+
       ---
 
       .p-right[Functions in Rust .small[(pt 4)]]
 
+      ## Closures
+
       --
 
-      ## Closures
+      - anonymous functions
+
+      --
+
+      - can capture their environment
+
+      --
+
+      ```rust
+      let square = |num| {
+        num * num
+      }
+      ```
+
+      --
+
+      - type annotations are optional
+
+      ---
+
+      .p-right[Functions in Rust .small[(pt 5)]]
+
+      ## HOF cont.
+
+      --
+
+      _Find the sum of all odd squares that are smaller than 10,000._ .small[[haskell](http://learnyouahaskell.com/higher-order-functions#maps-and-filters), [rust](https://doc.rust-lang.org/stable/rust-by-example/fn/hof.html)]
+
+      --
+
+      ```rust
+      fn is_odd(n: u32) -> bool {
+        n % 2 == 1
+      }
+
+      fn main() {
+        let upper = 10000;
+
+        let sum_of_squared_odd_numbers: u32 =
+          (0..).map(|n| n * n)
+               .take_while(|&n_squared| n_squared < upper)
+               .filter(|&n_squared| is_odd(n_squared))
+               .fold(0, |acc, n_squared| acc + n_squared);
+
+        println!("Result: {}", sum_of_squared_odd_numbers);
+      }
+      ```
 
       ---
 
