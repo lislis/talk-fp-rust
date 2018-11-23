@@ -13,5 +13,5 @@ fn main() {
         .filter(|&n_squared| is_odd(n_squared))
         .fold(0, |acc, n_squared| acc + n_squared);
 
-    println!("Result: {}", sum_of_squared_odd_numbers);x
+    println!("Result: {}", sum_of_squared_odd_numbers);
 }

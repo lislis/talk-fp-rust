@@ -164,6 +164,10 @@
       8
       ```
 
+      --
+
+      Note that Rust does [not do tail-call optimization](https://www.rust-lang.org/en-US/faq.html#does-rust-do-tail-call-optimization), so the stack is your limit!
+
       ---
 
       .p-right[Functions in Rust .small[(pt 3)]]
@@ -244,55 +248,30 @@
       }
       ```
 
+      --
+
+      ```bash
+      Result: 166650```
+
       ---
 
       class: center, middle
 
-      ## Can you explain Iterator again?
+      Where do map, filter, fold etc come from?
 
       --
 
-      Just a sec!
+      ### Iterators!
 
       ---
 
-      class: center, middle, invert
+      class: center, middle
 
-      # Generics and traits
-
-      ---
-
-      ## Generics and traits
+      ### Can you talk about Iterators more?
 
       --
 
-      - generics
-
-      --
-
-      - traits
-
-      --
-
-      - trait bounds
-
-      ---
-
-      class: center, middle, invert
-
-      # The `Iterator` trait
-
-      ---
-
-      ## `Iterator`s
-
-      - thread safe
-
-      - are lazy
-
-      - adaptors convert the type of Iterator
-
-      - consumers kick off evaluation
+      In a moment!
 
       ---
 
@@ -333,6 +312,271 @@
       --
 
       - error handling
+
+      ---
+
+      class: center, middle, invert
+
+      # Generics and traits
+
+      ---
+
+      .p-right[Generics and traits .small[(pt 1)]]
+
+      ## Generics
+
+      --
+
+      An abstract stand-in for a concrete type
+
+      --
+
+      ```rust
+      fn head<T>(v: &Vec<T>) -> &T {
+        v.first().unwrap()
+      }
+      ```
+      ---
+
+      .p-right[Generics and traits .small[(pt 1)]]
+
+      ## Generics
+
+      An abstract stand-in for a concrete type
+
+      ```rust
+      fn head<T>(v: &Vec<T>) -> &T {
+        v.first().unwrap()
+      }
+      fn main() {
+        let numbers = vec![43, 567, 2, 34];
+        let strings = vec!["hello", "foo", "world"];
+        println!("{}, {}", head(&numbers), head(&strings));
+      }
+
+      ```
+      --
+
+      ```bash
+      43, hello
+      ```
+
+      ---
+
+      .p-right[Generics and traits .small[(pt 2)]]
+
+      ## Generics
+
+      The example would break with an empty vector.
+
+      --
+
+      ```rust
+      let empty: Vec<u32> = vec![];
+      println!("{}", head(&empty));
+      ```
+
+      --
+
+      ```bash
+      thread 'main' panicked at 'called `Option::unwrap()` on a `None` value'
+      ```
+
+      ---
+      .p-right[Generics and traits .small[(pt 3)]]
+
+      ## Generics
+
+      The `Option<T>` type can help us.
+
+      --
+
+      ```rust
+      fn head<T>(v: &Vec<T>) -> Option<&T> {
+        match v.first() {
+          Some(inner) => { Some( inner ) },
+          None => { None }
+        }
+      }
+      ```
+
+      ---
+
+      .p-right[Generics and traits .small[(pt 3)]]
+
+      ## Generics
+
+      The `Option<T>` type can help us.
+
+      ```rust
+      fn head<T>(v: &Vec<T>) -> Option<&T> {
+        match v.first() {
+          Some(inner) => { Some( inner ) },
+          None => { None }
+        }
+      }
+
+      fn main() {
+        let numbers = vec![43, 567, 2, 34];
+        let strings = vec!["hello", "foo", "world"];
+        let empty: Vec<u32> = vec![];
+        println!("{:?}, {:?}, {:?}",
+                 head(&numbers), head(&strings), head(&empty));
+      }
+
+      ```
+      --
+
+      ```bash
+      Some(43), Some("hello"), None
+      ```
+      ---
+
+      .p-right[Generics and traits .small[(pt 4)]]
+
+      ## Traits
+
+      --
+
+      Traits define behaviour that types can implement
+
+      --
+
+      _Example_ `Display` trait for user facing string output
+
+      --
+
+      ```rust
+      struct Point {
+        x: i32,
+        y: i32
+      }
+
+      fn main() {
+        let p = Point { x: 12, y: 12};
+        println!("{}", p);
+      }
+      ```
+
+      --
+
+      ```bash
+      println!("{}", p);
+      |              ^ `Point` cannot be formatted with the default formatter
+
+      ```
+
+      ---
+
+      .p-right[Generics and traits .small[(pt 5)]]
+
+      ## Traits
+
+      Implement `Display` on `Point`
+
+      --
+
+      ```rust
+      use std::fmt;
+
+      struct Point {
+        x: i32,
+        y: i32
+      }
+      impl fmt::Display for Point {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+          write!(f, "({}, {})", self.x, self.y)
+        }
+      }
+      fn main() {
+        let p = Point { x: 12, y: 13 };
+        println!("{}", p);
+      }
+
+      ```
+      --
+
+      ```bash
+      (12, 13)
+      ```
+
+      ---
+
+      .p-right[Generics and traits .small[(pt 6)]]
+
+      ## Trait bounds
+
+      --
+
+      Constrain generic values with traits
+
+      --
+
+      ```rust
+      fn exclamation<T: Display>(s: T) -> String {
+        format!("{}!!!!!!", s)
+      }
+      ```
+
+      --
+
+      ```rust
+      fn main() {
+        let p = Point { x: 12, y: 13 };
+        println!("{}", exclamation(p));
+
+        println!("{}", exclamation(42));
+      }
+
+      ```
+
+      --
+
+      ```bash
+      (12, 13)!!!!!!
+      42!!!!!!
+      ```
+
+      ---
+
+      class: center, middle, invert
+
+      # The `Iterator` trait
+
+      ---
+
+      .p-right[Iterators .small[(pt 1)]]
+
+
+      ## Iterator trait
+
+      --
+
+      - handles logic of operating on a sequence
+
+      --
+
+      - are thread safe
+
+      --
+
+      - are lazy
+
+      --
+
+      - adaptors convert the type of Iterator
+
+      --
+
+      - consumers kick off evaluation
+
+      ---
+
+      Create fibonacci type
+
+      implement Iterator on it
+
+      pattern match and do things
 
       ---
 

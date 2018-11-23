@@ -15,23 +15,22 @@ fn even(n: u32) -> bool {
     !odd(n)
 }
 
-#[allow(dead_code)]
-fn collatz_chain(num: u32) -> Vec<u32> {
+fn collatz_recursion(num: u32) -> Vec<u32> {
     match num {
-        1 => { vec!(1) },
+        1 => { vec![1] },
         n if (even(n)) => {
-            let v = vec!(n);
-            [&v[..], &collatz_chain(n/2)[..]].concat()
+            let v = vec![n];
+            [&v[..], &collatz_recursion(n/2)[..]].concat()
         },
         n => {
-            let v = vec!(n);
-            [&v[..], &collatz_chain((n*3) + 1)[..]].concat()
+            let v = vec![n];
+            [&v[..], &collatz_recursion((n*3) + 1)[..]].concat()
         }
     }
 }
 
-fn collatz(num: u32) -> Vec<u32> {
-    let mut acc: Vec<u32> = vec!(num);
+fn collatz_loop(num: u32) -> Vec<u32> {
+    let mut acc: Vec<u32> = vec![num];
     let mut n: u32 = num;
 
     while n != 1 {
@@ -46,17 +45,18 @@ fn collatz(num: u32) -> Vec<u32> {
     acc
 }
 
-// for all starting numbers between 1 and 100, how many chains have a length greater than 15?
-
 fn main() {
-    println!("{:?}", collatz(30)); // loop
-    println!("{:?}", collatz_chain(30)); // recursion
+    println!("{:?}", collatz_loop(30));
+    println!("{:?}", collatz_recursion(30));
 
-    // NOTE: this does not seem to properly work even tho it's compiling
-    // Run at your own risk
+    // Problem:
+    // For all starting numbers between 1 and 100, how many chains have a length greater than 15?
+
+    // NOTE: stack overflow alert!
+    // While this looks cool, it crashed my computer
 
     //let chain_gt_15: usize =
-    //    (0..10).map(|n| collatz(n))
+    //    (0..10).map(|n| collatz_recursion(n))
     //           .filter(|chain| chain.into_iter().count() > 15)
     //           .count();
     //println!("{}", chain_gt_15);
