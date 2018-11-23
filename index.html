@@ -271,7 +271,7 @@
 
       --
 
-      In a moment!
+      Not yet!
 
       ---
 
@@ -281,15 +281,58 @@
 
       ---
 
-      ## Structs and enums
+      .p-right[Structs and enums .small[(pt 1)]]
+
+      ## Structs
 
       --
 
-      - structs
+      - custom data types
 
       --
 
-      - enums
+      ```rust
+      struct Point {
+        x: f32,
+        y: f32
+      }
+      ```
+
+      --
+
+      ```rust
+      fn main() {
+        let p = Point { x: 3.3, y: 4.8 }
+      }
+      ```
+
+      ---
+
+      .p-right[Structs and enums .small[(pt 2)]]
+
+      ## Enums
+
+      --
+
+      - custom data type with _enumerated_ possible values
+
+      --
+
+      ```rust
+      enum Shape {
+        Circle(Point, f32),
+        Rectangle(Point, Point)
+      }
+
+      ```
+
+      --
+
+      ```rust
+      fn main() {
+        let circle = Shape::Circle(Point { x: 3.0, y: 4.0 }, 10.0);
+      }
+      ```
 
       ---
 
@@ -299,19 +342,95 @@
 
       ---
 
-      ## Pattern matching!
+      .p-right[Pattern matching .small[(pt 1)]]
+
+      ## Recap
+
+      - matching on concrete values
 
       --
 
-      - with structs or enums
+      ```rust
+      fn fibonacci(nth: i32) -> i32  {
+        match nth {
+          0 =>  { 0 },
+          1 => { 1 },
+          n => {
+            fibonacci( n - 1 ) + fibonacci( n - 2)
+          }
+        }
+      }
+
+      ```
+
+      ---
+
+      .p-right[Pattern matching .small[(pt 2)]]
+
+      ## Matching on enums
 
       --
 
-      - compare with Haskell
+      ```rust
+      struct Point {
+        x: f32,
+        y: f32
+      }
+
+      enum Shape {
+        Circle(Point, f32),
+        Rectangle(Point, Point)
+      }
+
+      ```
+
+      ---
+
+      .p-right[Pattern matching .small[(pt 3)]]
+
+      ## Matching on enums
+
+      ```rust
+      fn surface(s: Shape) -> f32 {
+        match s {
+          Shape::Circle(_, r) => { PI * r.powf(2.0) },
+          Shape::Rectangle(Point { x: x1, y: y1 },
+                           Point { x: x2, y: y2 }) => {
+            (x2 - x1).abs() * (y2 - y1).abs()
+          }
+        }
+      }
+
+      ```
 
       --
 
-      - error handling
+      - destructuring! We can access the inner values and bind them
+
+      ---
+
+      .p-right[Pattern matching .small[(pt 4)]]
+
+      ## Matching on enums
+
+      ```rust
+      fn main() {
+        let circle = Shape::Circle(Point { x: 3.0, y: 4.0 }, 10.0);
+        println!("{}", surface(circle));
+
+      let rect = Shape::Rectangle(Point { x: 2.0, y: 4.0 },
+        Point { x: 4.0, y: 1.0});
+        println!("{}", surface(rect));
+      }
+
+      ```
+
+      --
+
+      ```bash
+      314.15927
+      6.0
+      ```
 
       ---
 
@@ -539,6 +658,12 @@
 
       ---
 
+      class: center, middle
+
+      ### Back to Iterators!
+
+      ---
+
       class: center, middle, invert
 
       # The `Iterator` trait
@@ -552,9 +677,11 @@
 
       --
 
-      - handles logic of operating on a sequence
+      handles logic of operating on a sequence
 
       --
+
+      ## Iterators
 
       - are thread safe
 
@@ -564,11 +691,11 @@
 
       --
 
-      - adaptors convert the type of Iterator
+        - adaptors convert the type of Iterator
 
       --
 
-      - consumers kick off evaluation
+        - consumers kick off evaluation
 
       ---
 
