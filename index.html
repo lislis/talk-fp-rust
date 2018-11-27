@@ -512,42 +512,23 @@
 
       ```rust
       fn head<T>(v: &Vec<T>) -> Option<&T> {
-        match v.first() {
-          Some(inner) => { Some( inner ) },
-          None => { None }
-        }
-      }
-      ```
-
-      ---
-
-      .p-right[Generics and traits .small[(pt 3)]]
-
-      ## Generics
-
-      The `Option<T>` type can help us.
-
-      ```rust
-      fn head<T>(v: &Vec<T>) -> Option<&T> {
-        match v.first() {
-          Some(inner) => { Some( inner ) },
-          None => { None }
-        }
-      }
-
-      fn main() {
-        let numbers = vec![43, 567, 2, 34];
-        let strings = vec!["hello", "foo", "world"];
-        let empty: Vec<u32> = vec![];
-        println!("{:?}, {:?}, {:?}",
-                 head(&numbers), head(&strings), head(&empty));
+        v.first()
       }
 
       ```
       --
 
-      ```bash
-      Some(43), Some("hello"), None
+      ```rust
+      fn main() {
+        let empty: Vec<u32> = vec![];
+        match head(&empty) {
+          Some(val) => { println!("Head is {:?}", val); },
+          None => { println!("No head here!"); }
+        }
+
+        let numbers = vec![43, 567, 2, 34];
+        let _num_head = head(&numbers).expect("No head!");
+      }
       ```
       ---
 
@@ -699,11 +680,110 @@
 
       ---
 
-      Create fibonacci type
+      .p-right[Iterators .small[(pt 2)]]
 
-      implement Iterator on it
 
-      pattern match and do things
+      ## Fibonacci cont.
+
+      --
+
+      ```rust
+      struct Fibonacci {
+        current: i32,
+        index: i32
+      }
+
+      ```
+
+      ---
+
+      .p-right[Iterators .small[(pt 3)]]
+
+      ## Fibonacci cont.
+
+      ```rust
+      impl Fibonacci {
+        fn new() -> Fibonacci {
+          Fibonacci {
+            current: 0,
+            index: 1
+          }
+        }
+      }
+
+      ```
+
+      ---
+
+      .p-right[Iterators .small[(pt 4)]]
+
+      ## Fibonacci cont.
+
+      ```rust
+      impl Fibonacci {
+        fn new() -> Fibonacci {
+          Fibonacci {
+            current: 0,
+            index: 1
+          }
+        }
+        pub fn nth(nth: i32) -> i32 {
+          match nth {
+            0 =>  { 0 },
+            1 => { 1 },
+            n => {
+              Fibonacci::nth( n - 1 ) + Fibonacci::nth( n - 2)
+            }
+          }
+        }
+      }
+
+      ```
+      ---
+
+      .p-right[Iterators .small[(pt 5)]]
+
+      ## Fibonacci cont.
+
+      ```rust
+      impl Iterator for Fibonacci {
+        type Item = i32;
+
+        fn next(&mut self) -> Option<Self::Item>{
+          self.index += 1;
+          let c = Fibonacci::nth(self.index);
+          self.current = c;
+          Some(self.current)
+        }
+      }
+
+      ```
+
+      ---
+
+      .p-right[Iterators .small[(pt 6)]]
+
+      ## Fibonacci cont.
+
+      _Among the first 10 numbers of the Fibonacci sequence, is there one odd number larger than 100?_
+      --
+
+      ```rust
+      fn main() {
+        let f: bool = Fibonacci::new()
+            .take(10)
+            .filter(|n| { n % 2 == 1 })
+            .any (|n| { n > 100});
+        println!("{}", f);
+      }
+
+      ```
+
+      --
+
+      ```bash
+      false
+      ```
 
       ---
 
@@ -717,9 +797,23 @@
 
       ---
 
-      ## What we learned
+      ## We learned that Rust
 
+      --
 
+      - is an imperative language with features inspired by functional languages
+
+      --
+
+      - has a powerful type system
+
+      --
+
+      - gets its functional feel from Iterators and closures
+
+      --
+
+      - gives us higher level concepts without having to  about performance
 
       ---
 

@@ -1,15 +1,16 @@
 //! Vector of a generic type, with Option<T>
 
 fn head<T>(v: &Vec<T>) -> Option<&T> {
-    match v.first() {
-        Some(inner) => { Some( inner ) },
-        None => { None }
-    }
+    v.first()
 }
+
 fn main() {
-    let numbers = vec![43, 567, 2, 34];
-    let strings = vec!["hello", "foo", "world"];
     let empty: Vec<u32> = vec![];
-    println!("{:?}, {:?}, {:?}",
-             head(&numbers), head(&strings), head(&empty));
+    match head(&empty) {
+        Some(val) => { println!("Head is {:?}", val); },
+        None => { println!("No head here!"); }
+    }
+
+    let numbers = vec![43, 567, 2, 34];
+    let _num_head = head(&numbers).expect("No head!");
 }
