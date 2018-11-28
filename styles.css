@@ -123,3 +123,8 @@ h1 + h1 {
   background-size: contain;
   background-position: right;
 }
+
+.speaker-shot {
+  background-size: 60%;
+  background-position: right bottom;
+}

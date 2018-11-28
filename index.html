@@ -16,6 +16,9 @@
 
       ---
 
+      class: speaker-shot
+      background-image: url(/img/coffee_mug.png)
+
       ## $ whoami
 
       --
@@ -51,21 +54,23 @@
 
       --
 
-      - imperative, multi-paragigm
+      - imperative, multi-paradigm
 
       --
 
-      - lifetimes and ownership
+      - not garbage collected and does not require manual memory management
 
       --
 
-        &rArr; no garbage collection and no manual memory management
+        &rArr; ownership and borrowing could fill an entire talk on their own
 
       --
 
       - young, but popular ([1](https://insights.stackoverflow.com/survey/2016#technology-most-loved-dreaded-and-wanted), [2](https://insights.stackoverflow.com/survey/2017#most-loved-dreaded-and-wanted), [3](https://insights.stackoverflow.com/survey/2018/#most-loved-dreaded-and-wanted))
 
       ---
+
+      class: middle
 
       ## Bringing together two worlds
 
@@ -75,7 +80,21 @@
 
       --
 
-      - higher level programmers who are used to abstractions
+      - higher level language programmers who are used to abstractions
+
+      ---
+
+      class: middle
+
+      ## How does Rust achieve this?
+
+      --
+
+      Taking good ideas and implementng them well,
+
+      --
+
+      while staying fast, secure and reliable.
 
       ---
 
@@ -164,13 +183,21 @@
       8
       ```
 
-      --
-
-      Note that Rust does [not do tail-call optimization](https://www.rust-lang.org/en-US/faq.html#does-rust-do-tail-call-optimization), so the stack is your limit!
-
       ---
 
       .p-right[Functions in Rust .small[(pt 3)]]
+
+      ## Recursion
+
+      - Rust does [not do tail-call optimization](https://www.rust-lang.org/en-US/faq.html#does-rust-do-tail-call-optimization), so the stack is your limit!
+
+      --
+
+      - Partial application and currying à la Haskell are not possible
+
+      ---
+
+      .p-right[Functions in Rust .small[(pt 4)]]
 
       --
 
@@ -178,15 +205,15 @@
 
       --
 
-      Take a function as param and/or return a function
+      Take a function as argument and/or return a function
 
       --
 
-      - we'd have to know the types beforehand to annotate them
+      - we'd have to know the types beforehand to annotate them (required by Rust)
 
       --
 
-      - the types of two named functions with the same signature  are still different
+      - the types of two named functions with the same signature are still different
 
       --
 
@@ -194,7 +221,7 @@
 
       ---
 
-      .p-right[Functions in Rust .small[(pt 4)]]
+      .p-right[Functions in Rust .small[(pt 5)]]
 
       ## Closures
 
@@ -220,7 +247,7 @@
 
       ---
 
-      .p-right[Functions in Rust .small[(pt 5)]]
+      .p-right[Functions in Rust .small[(pt 6)]]
 
       ## HOF cont.
 
